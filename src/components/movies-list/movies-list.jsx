@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card';
+import {moviePropTypes} from '../../props-validation';
 
-const MoviesList = ({movies}) => {
+const MoviesList = ({films}) => {
   return (
 
     <div className="catalog__movies-list">
-      {movies.map((movie) => (<MovieCard movie={movie} key={movie.id} />))}
+      {films.map((movie) => (<MovieCard movie={movie} key={movie.id} />))}
 
     </div>
 
@@ -14,12 +15,8 @@ const MoviesList = ({movies}) => {
 };
 
 MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-      }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired
 };
 

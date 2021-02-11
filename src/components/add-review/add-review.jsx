@@ -1,6 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {moviePropTypes} from '../../props-validation';
 
-const AddReview = () => {
+const AddReview = ({movie}) => {
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
@@ -12,17 +15,17 @@ const AddReview = () => {
 
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to="/" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href="movie-page.html" className="breadcrumbs__link">{movie.title}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -38,7 +41,7 @@ const AddReview = () => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={movie.posterImg} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
 
@@ -52,7 +55,7 @@ const AddReview = () => {
               <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
               <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3" checked />
+              <input className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked />
               <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
               <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
@@ -67,7 +70,7 @@ const AddReview = () => {
               <input className="rating__input" id="star-7" type="radio" name="rating" value="7" />
               <label className="rating__label" htmlFor="star-7">Rating 7</label>
 
-              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked />
+              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" defaultChecked />
               <label className="rating__label" htmlFor="star-8">Rating 8</label>
 
               <input className="rating__input" id="star-9" type="radio" name="rating" value="9" />
@@ -91,6 +94,10 @@ const AddReview = () => {
     </section>
 
   );
+};
+
+AddReview.propTypes = {
+  movie: PropTypes.shape(moviePropTypes).isRequired,
 };
 
 export default AddReview;
