@@ -46,11 +46,11 @@ App.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired,
-  match: {
-    params: {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
       id: PropTypes.number.isRequired,
-    },
-  },
+    }),
+  }),
 };
 
 export default App;
