@@ -59,9 +59,8 @@ const MoviePage = ({movie, films, reviews}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__movies-list">
-            <MoviesList films={films} />
-          </div>
+          <MoviesList films={films.filter((film) => (film.genre === movie.genre && film.id !== movie.id)).slice(0, 4)} />
+
         </section>
 
         <footer className="page-footer">
