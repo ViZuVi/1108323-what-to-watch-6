@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {moviePropTypes} from '../../props-validation';
+import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import Header from '../header/header';
 import MoviesList from '../movies-list/movies-list';
-import {getRating} from '../../common';
+import Tabs from '../tabs/tabs';
 
-const MoviePage = ({movie, films}) => {
+const MoviePage = ({movie, films, reviews}) => {
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -50,36 +50,7 @@ const MoviePage = ({movie, films}) => {
             <div className="movie-card__poster movie-card__poster--big">
               <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
             </div>
-
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="movie-rating">
-                <div className="movie-rating__score">{movie.rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{getRating(movie.rating)}</span>
-                  <span className="movie-rating__count">240 ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                <p>{movie.description}</p>
-                <p className="movie-card__director"><strong>{movie.director}</strong></p>
-                <p className="movie-card__starring"><strong>{movie.starring.join(`, `)}</strong></p>
-              </div>
-            </div>
+            <Tabs movie = {movie} reviews={reviews} />
           </div>
         </div>
       </section>
@@ -88,9 +59,8 @@ const MoviePage = ({movie, films}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__movies-list">
-            <MoviesList films={films} />
-          </div>
+          <MoviesList films={films.filter((film) => (film.genre === movie.genre && film.id !== movie.id)).slice(0, 4)} />
+
         </section>
 
         <footer className="page-footer">
@@ -116,6 +86,9 @@ MoviePage.propTypes = {
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired,
   movie: PropTypes.shape(moviePropTypes).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape(reviewPropTypes).isRequired,
+  )
 };
 
 export default MoviePage;
