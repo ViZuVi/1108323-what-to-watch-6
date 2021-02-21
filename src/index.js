@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {films} from './mocks/films';
+import {reviews} from './mocks/reviews';
 
 const promoMovie = {
   title: `The Grand Budapest Hotel`,
@@ -11,6 +12,6 @@ const promoMovie = {
 };
 
 ReactDOM.render(
-    <App promoMovie={promoMovie} films={films} />,
+    <App promoMovie={promoMovie} films={films} reviews={reviews} />,
     document.querySelector(`#root`)
 );

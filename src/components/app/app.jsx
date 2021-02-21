@@ -8,9 +8,9 @@ import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
-import {moviePropTypes} from '../../props-validation';
+import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 
-const App = ({promoMovie, films}) => {
+const App = ({promoMovie, films, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -25,6 +25,7 @@ const App = ({promoMovie, films}) => {
             <MoviePage
               {...props}
               films={films}
+              reviews={reviews}
               movie={activeMovie}
             />
           );
@@ -51,6 +52,9 @@ App.propTypes = {
       id: PropTypes.number.isRequired,
     }),
   }),
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape(reviewPropTypes).isRequired,
+  )
 };
 
 export default App;
