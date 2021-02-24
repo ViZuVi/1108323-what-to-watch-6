@@ -14,7 +14,7 @@ const App = ({promoMovie, films, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/"><Main promoMovie={promoMovie} films={films} /></Route>
+        <Route exact path="/"><Main promoMovie={promoMovie} /></Route>
         <Route exact path="/login"><SignIn /></Route>
         <Route exact path="/mylist"><MyList films={films} /></Route>
         <Route exact path="/films/:id" render={(props) => {
