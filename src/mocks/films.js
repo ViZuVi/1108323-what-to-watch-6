@@ -14,7 +14,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
     runTime: 120,
-    genre: `Comedy`,
+    genre: `Fantasy`,
     released: 2014,
     isFavorite: true,
   },

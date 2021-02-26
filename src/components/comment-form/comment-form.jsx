@@ -5,8 +5,6 @@ const CommentForm = () => {
   const [commentText, setCommentText] = useState(``);
   const STARS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  // console.log(userStar);
-
   return (
     <form action="#" className="add-review__form">
       <div className="rating">

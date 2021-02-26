@@ -30,16 +30,17 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_FILTERED_MOVIES:
       return {
         ...state,
-        filteredMovies: state.activeGenre === `All genres` ? initialState.movies.slice(0, SHOWN_MOVIES_ON_START) : state.movies.filter((film) => (film.genre === action.payload)).slice(0, SHOWN_MOVIES_ON_START),
-        isVisibleShowMore: state.movies.filter((film) => (film.genre === action.payload)).length > SHOWN_MOVIES_ON_START ? true : false,
+        movies: state.activeGenre === `All genres` ? initialState.movies : initialState.movies.filter((film) => (film.genre === action.payload)),
+        filteredMovies: state.activeGenre === `All genres` ? initialState.movies.slice(0, SHOWN_MOVIES_ON_START) : initialState.movies.filter((film) => (film.genre === action.payload)).slice(0, SHOWN_MOVIES_ON_START),
+        isVisibleShowMore: initialState.movies.filter((film) => (film.genre === action.payload)).length > SHOWN_MOVIES_ON_START || initialState.movies.filter(() => (action.payload === `All genres`)).length > SHOWN_MOVIES_ON_START ? true : false,
+        shownMoviesCount: SHOWN_MOVIES_ON_START,
       };
     case ActionType.GET_SHOWN_MOVIES:
-
+      state.shownMoviesCount = state.shownMoviesCount + SHOWN_MOVIES_ON_BTN_CLICK;
       return {
         ...state,
-        shownMoviesCount: state.shownMoviesCount + SHOWN_MOVIES_ON_BTN_CLICK,
-        // filteredMovies: state.filteredMovies.slice(SHOWN_MOVIES_ON_START, state.shownMoviesCount),
-        filteredMovies: state.activeGenre === `All genres` ? initialState.movies.slice(0, state.shownMoviesCount) : state.movies.filter((film) => (film.genre === action.payload)).slice(0, state.shownMoviesCount),
+        filteredMovies: state.movies.slice(0, state.shownMoviesCount),
+        isVisibleShowMore: state.shownMoviesCount >= state.movies.length ? false : true,
       };
   }
   return state;
