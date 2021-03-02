@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MoviesList from '../movies-list/movies-list';
+import {connect} from 'react-redux';
 import {moviePropTypes} from '../../props-validation';
+import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import GenresList from '../genres-list/genres-list';
+import ShowMore from '../show-more/show-more';
 
-const Main = ({promoMovie}) => {
+const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
+
   return (
     <>
       <section className="movie-card">
@@ -55,11 +58,10 @@ const Main = ({promoMovie}) => {
 
           <GenresList />
 
-          <MoviesList />
+          <MoviesList movies={filteredMovies} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {isVisibleShowMore && <ShowMore />}
+
         </section>
 
         <footer className="page-footer">
@@ -80,15 +82,23 @@ const Main = ({promoMovie}) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  filteredMovies: state.filteredMovies,
+  shownMovies: state.shownMovies,
+  isVisibleShowMore: state.isVisibleShowMore,
+});
+
 Main.propTypes = {
   promoMovie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
-  films: PropTypes.arrayOf(
+  filteredMovies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
-  ).isRequired
+  ),
+  isVisibleShowMore: PropTypes.bool.isRequired,
 };
 
-export default Main;
+export {Main};
+export default connect(mapStateToProps, null)(Main);
