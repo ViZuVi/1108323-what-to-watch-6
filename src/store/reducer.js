@@ -5,10 +5,8 @@ const SHOWN_MOVIES_ON_START = 8;
 const SHOWN_MOVIES_ON_BTN_CLICK = 8;
 
 const getGenresSet = (movies) => {
-  const allGenres = [];
-  movies.map((movie) => (allGenres.push(Object.values(movie.genre).join(``))));
-  const genresSet = Array.from(new Set(allGenres));
-  return [`All genres`, ...genresSet];
+  const allGenres = movies.map(({genre}) => genre);
+  return [`All genres`, ...[...new Set(allGenres)]];
 };
 
 const initialState = {
@@ -27,21 +25,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeGenre: action.payload,
       };
-    case ActionType.GET_FILTERED_MOVIES:
+    case ActionType.GET_FILTERED_MOVIES: {
+      const filteredFilms = state.activeGenre === `All genres`
+        ? initialState.movies
+        : initialState.movies.filter((film) => (film.genre === action.payload));
+
+      const isVisibleShowMore = filteredFilms.length > SHOWN_MOVIES_ON_START;
+
       return {
         ...state,
-        movies: state.activeGenre === `All genres` ? initialState.movies : initialState.movies.filter((film) => (film.genre === action.payload)),
-        filteredMovies: state.activeGenre === `All genres` ? initialState.movies.slice(0, SHOWN_MOVIES_ON_START) : initialState.movies.filter((film) => (film.genre === action.payload)).slice(0, SHOWN_MOVIES_ON_START),
-        isVisibleShowMore: initialState.movies.filter((film) => (film.genre === action.payload)).length > SHOWN_MOVIES_ON_START || initialState.movies.filter(() => (action.payload === `All genres`)).length > SHOWN_MOVIES_ON_START ? true : false,
-        shownMoviesCount: SHOWN_MOVIES_ON_START,
+        movies: filteredFilms,
+        filteredMovies: filteredFilms.slice(0, SHOWN_MOVIES_ON_START),
+        isVisibleShowMore,
       };
-    case ActionType.GET_SHOWN_MOVIES:
-      state.shownMoviesCount = state.shownMoviesCount + SHOWN_MOVIES_ON_BTN_CLICK;
+    }
+    case ActionType.GET_SHOWN_MOVIES: {
+      const shownMoviesCount = state.filteredMovies.length + SHOWN_MOVIES_ON_BTN_CLICK;
+
       return {
         ...state,
-        filteredMovies: state.movies.slice(0, state.shownMoviesCount),
-        isVisibleShowMore: state.shownMoviesCount >= state.movies.length ? false : true,
+        filteredMovies: state.movies.slice(0, shownMoviesCount),
+        isVisibleShowMore: shownMoviesCount < state.movies.length,
       };
+    }
   }
   return state;
 };
