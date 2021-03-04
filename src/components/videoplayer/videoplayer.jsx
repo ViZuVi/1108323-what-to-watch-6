@@ -7,7 +7,14 @@ const Videoplayer = ({isPlaying, movie}) => {
 
   useEffect(() => {
 
-    videoRef.current.play();
+    const video = videoRef.current.play();
+    if (video !== undefined) {
+      video.then((_) => {
+      })
+      .catch((_error) => {
+
+      });
+    }
 
     return () => {
       videoRef.current.pause();
