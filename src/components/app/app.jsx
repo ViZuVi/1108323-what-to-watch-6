@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
@@ -11,15 +11,17 @@ import MoviePage from '../movie-page/movie-page';
 import NotFound from '../not-found/not-found';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {AppRoute} from '../../const';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 
 const App = ({promoMovie, filteredMovies, reviews}) => {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}><Main promoMovie={promoMovie} /></Route>
         <Route exact path={AppRoute.LOGIN}><SignIn /></Route>
-        <Route exact path={AppRoute.MY_LIST}><MyList /></Route>
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList />)} />
         <Route exact path={AppRoute.MOVIE_PAGE} render={(props) => {
           const activeMovie = filteredMovies.find((el) => {
             return el.id === parseInt(props.match.params.id, 10);

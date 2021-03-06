@@ -1,7 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
-const Header = () => {
+const Header = ({authorizationStatus, userInfo}) => {
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
@@ -13,12 +16,26 @@ const Header = () => {
       </div>
 
       <div className="user-block">
-        <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-        </div>
+
+        {authorizationStatus === AuthorizationStatus.AUTH
+          ? <Link to={AppRoute.MY_LIST}>{userInfo.email}</Link>
+          : <Link to={AppRoute.LOGIN}>Sign In</Link>}
       </div>
     </header>
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  userInfo: state.userInfo,
+});
+
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  userInfo: PropTypes.shape({
+    email: PropTypes.string.isRequired
+  })
+};
+
+export {Header};
+export default connect(mapStateToProps, null)(Header);
