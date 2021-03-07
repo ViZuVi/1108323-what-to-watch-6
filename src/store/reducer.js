@@ -1,5 +1,4 @@
 import {ActionType} from './action';
-// import {films} from '../mocks/films';
 import {AuthorizationStatus} from '../const';
 import {adaptMovies} from '../adapters/films';
 
@@ -15,16 +14,22 @@ const initialState = {
   activeGenre: `All genres`,
   initMovies: [],
   movies: [],
-  filteredMovies: [], // films.slice(0, SHOWN_MOVIES_ON_START)
-  genres: [], // getGenresSet(films),
+  filteredMovies: [],
+  genres: [],
   shownMoviesCount: SHOWN_MOVIES_ON_START,
-  isVisibleShowMore: false, // films.length > SHOWN_MOVIES_ON_START && true
+  isVisibleShowMore: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false,
+  userInfo: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.GET_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
     case ActionType.LOAD_MOVIES:
       const adaptedMovies = adaptMovies(action.payload);
       return {

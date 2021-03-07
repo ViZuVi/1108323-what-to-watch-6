@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card';
 import {moviePropTypes} from '../../props-validation';
 
-const MyList = ({filteredMovies}) => {
+const MyList = ({movies}) => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -30,7 +30,7 @@ const MyList = ({filteredMovies}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          {filteredMovies.filter((film) => (film.isFavorite)).map((film) => (<MovieCard movie={film} key={film.id} />))}
+          {movies.filter((film) => (film.isFavorite)).map((film) => (<MovieCard movie={film} key={film.id} />))}
         </div>
       </section>
 
@@ -52,11 +52,11 @@ const MyList = ({filteredMovies}) => {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.filteredMovies,
+  movies: state.movies,
 });
 
 MyList.propTypes = {
-  filteredMovies: PropTypes.arrayOf(
+  movies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired
 };

@@ -16,3 +16,13 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(AppRoute.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
 );
+
+export const getUser = () => (dispatch, _getState, api) => (
+  api.get(AppRoute.LOGIN)
+    .then(({data}) => dispatch(ActionCreator.getUserInfo(data)))
+);
+
+// export const logout = () => (dispatch, _getState, api) => (
+//   api.get(AppRoute.LOGOUT)
+//     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)))
+// );
