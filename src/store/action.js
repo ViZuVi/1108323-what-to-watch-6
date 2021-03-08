@@ -6,6 +6,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `/requiredAuthorization`,
   GET_USER_INFO: `/getUserInfo`,
   LOAD_COMMENTS: `/loadComments`,
+  LOAD_PROMO_MOVIE: `/loadPromoMovie`,
 };
 
 export const ActionCreator = {
@@ -35,5 +36,9 @@ export const ActionCreator = {
   loadComments: (comments) => ({
     type: ActionType.LOAD_COMMENTS,
     payload: comments,
+  }),
+  loadPromoMovie: (movie) => ({
+    type: ActionType.LOAD_PROMO_MOVIE,
+    payload: movie,
   })
 };

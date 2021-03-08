@@ -1,6 +1,7 @@
 import {ActionType} from './action';
 import {AuthorizationStatus} from '../const';
 import {adaptMovies} from '../adapters/films';
+import {adaptPromo} from '../adapters/promo';
 
 const SHOWN_MOVIES_ON_START = 8;
 const SHOWN_MOVIES_ON_BTN_CLICK = 8;
@@ -22,10 +23,17 @@ const initialState = {
   isDataLoaded: false,
   userInfo: null,
   comments: [],
+  promoMovie: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_PROMO_MOVIE:
+      const adaptedPromo = adaptPromo(action.payload);
+      return {
+        ...state,
+        promoMovie: adaptedPromo,
+      };
     case ActionType.LOAD_COMMENTS:
       return {
         ...state,

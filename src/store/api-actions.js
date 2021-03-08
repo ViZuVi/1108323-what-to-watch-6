@@ -6,11 +6,10 @@ export const fetchMovies = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadMovies(data)))
 );
 
-// export const checkAuth = () => (dispatch, _getState, api) => (
-//   api.get(AppRoute.LOGIN)
-//     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)))
-//     .catch(() => {})
-// );
+export const fetchPromoMovie = () => (dispatch, _getState, api) => (
+  api.get(AppRoute.PROMO_MOVIE)
+    .then(({data}) => dispatch(ActionCreator.loadPromoMovie(data)))
+);
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(AppRoute.LOGIN)
@@ -24,11 +23,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(({data}) => dispatch(ActionCreator.getUserInfo(data)))
     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
 );
-
-// export const getUser = () => (dispatch, _getState, api) => (
-//   api.get(AppRoute.LOGIN)
-//     .then(({data}) => dispatch(ActionCreator.getUserInfo(data)))
-// );
 
 export const postComment = ({movieId, rating, comment}) => (_dispatch, _getState, api) => (
   api.post(`/comments/${movieId}`, {rating, comment})
@@ -45,8 +39,3 @@ export const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.getUserInfo({})))
 );
 
-
-// export const logout = () => (dispatch, _getState, api) => (
-//   api.get(AppRoute.LOGOUT)
-//     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)))
-// );

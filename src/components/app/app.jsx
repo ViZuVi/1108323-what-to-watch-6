@@ -14,10 +14,10 @@ import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const App = ({promoMovie, movies, authorizationStatus}) => {
+const App = ({movies, authorizationStatus}) => {
 
   const findActiveMovie = (films, props) => {
-    const activeMovie = movies.find((el) => {
+    const activeMovie = films.find((el) => {
       return el.id === parseInt(props.match.params.id, 10);
     });
     return activeMovie;
@@ -26,7 +26,7 @@ const App = ({promoMovie, movies, authorizationStatus}) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path={AppRoute.ROOT}><Main promoMovie={promoMovie} /></Route>
+        <Route exact path={AppRoute.ROOT}><Main /></Route>
         <Route exact path={AppRoute.LOGIN}><SignIn /></Route>
         <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList />)} />
         <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={(props) => (<AddReview movie={findActiveMovie(movies, props)} />)} />
@@ -56,11 +56,6 @@ const mapStateToProps = (state) => ({
 });
 
 App.propTypes = {
-  promoMovie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-  }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired,
