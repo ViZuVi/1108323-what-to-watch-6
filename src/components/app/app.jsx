@@ -14,7 +14,7 @@ import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const App = ({promoMovie, movies, reviews}) => {
+const App = ({promoMovie, movies, authorizationStatus}) => {
 
   const findActiveMovie = (films, props) => {
     const activeMovie = movies.find((el) => {
@@ -29,15 +29,15 @@ const App = ({promoMovie, movies, reviews}) => {
         <Route exact path={AppRoute.ROOT}><Main promoMovie={promoMovie} /></Route>
         <Route exact path={AppRoute.LOGIN}><SignIn /></Route>
         <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList />)} />
-        <Route exact path={AppRoute.ADD_REVIEW} render={(props) => (<AddReview movie={findActiveMovie(movies, props)} />)} />
+        <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={(props) => (<AddReview movie={findActiveMovie(movies, props)} />)} />
         <Route exact path={AppRoute.MOVIE_PAGE} render={(props) => {
           const activeMovie = findActiveMovie(movies, props);
           return (
             <MoviePage
               {...props}
               // films={films}
-              reviews={reviews}
               movie={activeMovie}
+              authorizationStatus={authorizationStatus}
             />
           );
         }} />
@@ -52,6 +52,7 @@ const App = ({promoMovie, movies, reviews}) => {
 const mapStateToProps = (state) => ({
   movies: state.movies,
   isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 App.propTypes = {
@@ -70,7 +71,8 @@ App.propTypes = {
   }),
   reviews: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,
-  )
+  ),
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export {App};

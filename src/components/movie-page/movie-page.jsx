@@ -6,7 +6,7 @@ import Header from '../header/header';
 // import MoviesList from '../movies-list/movies-list';
 import Tabs from '../tabs/tabs';
 
-const MoviePage = ({movie, reviews}) => {
+const MoviePage = ({movie, authorizationStatus}) => {
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -40,7 +40,9 @@ const MoviePage = ({movie, reviews}) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">Add review</Link>
+
+                {authorizationStatus === `AUTH` && <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">Add review</Link>}
+
               </div>
             </div>
           </div>
@@ -89,7 +91,8 @@ MoviePage.propTypes = {
   movie: PropTypes.shape(moviePropTypes).isRequired,
   reviews: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,
-  )
+  ),
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default MoviePage;

@@ -49,9 +49,10 @@ const Tabs = ({movie, comments, onReviewsTabClick}) => {
 
 Tabs.propTypes = {
   movie: PropTypes.shape(moviePropTypes).isRequired,
-  reviews: PropTypes.arrayOf(
+  comments: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,
-  )
+  ),
+  onReviewsTabClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
