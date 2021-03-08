@@ -21,10 +21,16 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false,
   userInfo: null,
+  comments: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+      };
     case ActionType.GET_USER_INFO:
       return {
         ...state,

@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {reviewPropTypes} from '../../props-validation';
+import {formatDate} from '../../common';
 
-const MovieReviews = ({reviews}) => {
-  const reviewsFirtCol = reviews.slice(0, Math.round(reviews.length / 2));
-  const reviewsSecondCol = reviews.slice(Math.round(reviews.length / 2));
+const MovieReviews = ({comments}) => {
+  const commentsFirtCol = comments.slice(0, Math.round(comments.length / 2));
+  const commentsSecondCol = comments.slice(Math.round(comments.length / 2));
   return (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {reviewsFirtCol.map((review, i) => {
+        {commentsFirtCol.map((review, i) => {
           return (
             <div key={review.id + i} className="review">
               <blockquote className="review__quote">
@@ -16,7 +17,7 @@ const MovieReviews = ({reviews}) => {
 
                 <footer className="review__details">
                   <cite className="review__author">{review.user.name}</cite>
-                  <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+                  <time className="review__date" dateTime={review.date}>{formatDate(review.date)}</time>
                 </footer>
               </blockquote>
 
@@ -26,7 +27,7 @@ const MovieReviews = ({reviews}) => {
         })}
       </div>
       <div className="movie-card__reviews-col">
-        {reviewsSecondCol.map((review, i) => {
+        {commentsSecondCol.map((review, i) => {
           return (
             <div key={review.id + i} className="review">
               <blockquote className="review__quote">
@@ -34,7 +35,7 @@ const MovieReviews = ({reviews}) => {
 
                 <footer className="review__details">
                   <cite className="review__author">{review.user.name}</cite>
-                  <time className="review__date" dateTime="2016-12-24">{review.date}</time>
+                  <time className="review__date" dateTime={review.date}>{formatDate(review.date)}</time>
                 </footer>
               </blockquote>
 
@@ -48,7 +49,7 @@ const MovieReviews = ({reviews}) => {
 };
 
 MovieReviews.propTypes = {
-  reviews: PropTypes.arrayOf(
+  comments: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,
   )
 };

@@ -22,6 +22,16 @@ export const getUser = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.getUserInfo(data)))
 );
 
+export const postComment = ({movieId, rating, comment}) => (dispatch, _getState, api) => (
+  api.post(`/comments/${movieId}`, {rating, comment})
+  // .then(({data}) => dispatch(ActionCreator.updateComments(data)))
+);
+
+export const loadComments = (movieId) => (dispatch, _getState, api) => (
+  api.get(`/comments/${movieId}`)
+    .then(({data}) => dispatch(ActionCreator.loadComments(data)))
+);
+
 // export const logout = () => (dispatch, _getState, api) => (
 //   api.get(AppRoute.LOGOUT)
 //     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)))

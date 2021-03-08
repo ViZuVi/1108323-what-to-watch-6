@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import MovieDetails from '../movie-details/movie.details';
 import MovieOverview from '../movie-overview/movie-overview';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
+import {loadComments} from '../../store/api-actions';
 
 const tabTitles = [`Overview`, `Details`, `Reviews`];
 
 
-const Tabs = ({movie, reviews}) => {
+const Tabs = ({movie, comments, onReviewsTabClick}) => {
   const [activeTab, setActiveTab] = useState(`Overview`);
 
   const getActiveTab = (tab) => {
     switch (tab) {
       case `Overview`: return <MovieOverview movie={movie} />;
       case `Details`: return <MovieDetails movie={movie} />;
-      case `Reviews`: return <MovieReviews reviews={reviews} />;
+      case `Reviews`: return <MovieReviews comments={comments} />;
       default: return <MovieOverview />;
     }
   };
@@ -31,6 +33,7 @@ const Tabs = ({movie, reviews}) => {
                   onClick={(evt) => {
                     evt.preventDefault();
                     setActiveTab(evt.target.text);
+                    return evt.target.text === `Reviews` ? onReviewsTabClick(movie.id) : ``;
                   }}>
                   {tabTitle}
                 </a>
@@ -51,4 +54,15 @@ Tabs.propTypes = {
   )
 };
 
-export default Tabs;
+const mapStateToProps = (state) => ({
+  comments: state.comments,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onReviewsTabClick(id) {
+    dispatch(loadComments(id));
+  }
+});
+
+export {Tabs};
+export default connect(mapStateToProps, mapDispatchToProps)(Tabs);
