@@ -3,10 +3,10 @@ import {useHistory} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {login, getUser} from '../../store/api-actions';
+import {login} from '../../store/api-actions';
 import {AppRoute} from '../../const';
 
-const SignIn = ({onSubmit, setUser}) => {
+const SignIn = ({onSubmit}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -19,8 +19,6 @@ const SignIn = ({onSubmit, setUser}) => {
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
-
-    setUser();
 
     history.push(AppRoute.ROOT);
   };
@@ -76,16 +74,13 @@ const SignIn = ({onSubmit, setUser}) => {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  setUser: PropTypes.func.isRequired,
+  // setUser: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
     dispatch(login(authData));
   },
-  setUser() {
-    dispatch(getUser());
-  }
 });
 
 export {SignIn};

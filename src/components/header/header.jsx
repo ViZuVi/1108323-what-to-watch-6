@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => ({
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   userInfo: PropTypes.shape({
-    email: PropTypes.string.isRequired
+    email: PropTypes.string,
   }),
   onLogoutClick: PropTypes.func.isRequired,
 };
