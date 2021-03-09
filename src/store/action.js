@@ -4,7 +4,9 @@ export const ActionType = {
   GET_SHOWN_MOVIES: `/getShownMovies`,
   LOAD_MOVIES: `/loadMovies`,
   REQUIRED_AUTHORIZATION: `/requiredAuthorization`,
-  GET_USER_INFO: `/getUserInfo`
+  GET_USER_INFO: `/getUserInfo`,
+  LOAD_COMMENTS: `/loadComments`,
+  LOAD_PROMO_MOVIE: `/loadPromoMovie`,
 };
 
 export const ActionCreator = {
@@ -31,4 +33,12 @@ export const ActionCreator = {
     type: ActionType.GET_USER_INFO,
     payload: userInfo,
   }),
+  loadComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
+  }),
+  loadPromoMovie: (movie) => ({
+    type: ActionType.LOAD_PROMO_MOVIE,
+    payload: movie,
+  })
 };

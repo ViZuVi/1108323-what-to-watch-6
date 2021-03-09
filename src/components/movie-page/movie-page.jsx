@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import Header from '../header/header';
 // import MoviesList from '../movies-list/movies-list';
 import Tabs from '../tabs/tabs';
 
-const MoviePage = ({movie, reviews}) => {
+const MoviePage = ({movie, authorizationStatus}) => {
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -39,7 +40,9 @@ const MoviePage = ({movie, reviews}) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+
+                {authorizationStatus === `AUTH` && <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">Add review</Link>}
+
               </div>
             </div>
           </div>
@@ -48,9 +51,9 @@ const MoviePage = ({movie, reviews}) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={movie.posterImg} alt={movie.title} width="218" height="327" />
             </div>
-            <Tabs movie = {movie} reviews={reviews} />
+            <Tabs movie = {movie} />
           </div>
         </div>
       </section>
@@ -88,7 +91,8 @@ MoviePage.propTypes = {
   movie: PropTypes.shape(moviePropTypes).isRequired,
   reviews: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,
-  )
+  ),
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default MoviePage;

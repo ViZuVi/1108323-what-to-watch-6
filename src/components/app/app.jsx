@@ -6,7 +6,7 @@ import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
 import MoviePage from '../movie-page/movie-page';
-// import AddReview from '../add-review/add-review';
+import AddReview from '../add-review/add-review';
 // import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
@@ -14,24 +14,30 @@ import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const App = ({promoMovie, filteredMovies, reviews}) => {
+const App = ({movies, authorizationStatus}) => {
+
+  const findActiveMovie = (films, props) => {
+    const activeMovie = films.find((el) => {
+      return el.id === parseInt(props.match.params.id, 10);
+    });
+    return activeMovie;
+  };
 
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path={AppRoute.ROOT}><Main promoMovie={promoMovie} /></Route>
+        <Route exact path={AppRoute.ROOT}><Main /></Route>
         <Route exact path={AppRoute.LOGIN}><SignIn /></Route>
         <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList />)} />
+        <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={(props) => (<AddReview movie={findActiveMovie(movies, props)} />)} />
         <Route exact path={AppRoute.MOVIE_PAGE} render={(props) => {
-          const activeMovie = filteredMovies.find((el) => {
-            return el.id === parseInt(props.match.params.id, 10);
-          });
+          const activeMovie = findActiveMovie(movies, props);
           return (
             <MoviePage
               {...props}
               // films={films}
-              reviews={reviews}
               movie={activeMovie}
+              authorizationStatus={authorizationStatus}
             />
           );
         }} />
@@ -44,17 +50,13 @@ const App = ({promoMovie, filteredMovies, reviews}) => {
 };
 
 const mapStateToProps = (state) => ({
-  filteredMovies: state.filteredMovies,
+  movies: state.movies,
   isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 App.propTypes = {
-  promoMovie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-  }).isRequired,
-  filteredMovies: PropTypes.arrayOf(
+  movies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired,
   match: PropTypes.shape({
@@ -64,7 +66,8 @@ App.propTypes = {
   }),
   reviews: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,
-  )
+  ),
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export {App};

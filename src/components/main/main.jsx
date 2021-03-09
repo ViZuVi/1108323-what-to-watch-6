@@ -13,7 +13,7 @@ const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoMovie.backgroundImg} alt={promoMovie.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -23,14 +23,14 @@ const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoMovie.posterImg} alt={promoMovie.title} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{promoMovie.title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{promoMovie.genre}</span>
-                <span className="movie-card__year">{promoMovie.releaseDate}</span>
+                <span className="movie-card__year">{promoMovie.released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -86,13 +86,16 @@ const mapStateToProps = (state) => ({
   filteredMovies: state.filteredMovies,
   shownMovies: state.shownMovies,
   isVisibleShowMore: state.isVisibleShowMore,
+  promoMovie: state.promoMovie,
 });
 
 Main.propTypes = {
   promoMovie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
+    released: PropTypes.number.isRequired,
+    backgroundImg: PropTypes.string.isRequired,
+    posterImg: PropTypes.string.isRequired,
   }).isRequired,
   filteredMovies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,

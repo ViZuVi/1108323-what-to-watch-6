@@ -9,7 +9,9 @@ export const AppRoute = {
   LOGIN: `/login`,
   MOVIE_PAGE: `/films/:id`,
   MY_LIST: `/mylist`,
-  LOGOUT: `/logout`
+  LOGOUT: `/logout`,
+  ADD_REVIEW: `/films/:id/review`,
+  PROMO_MOVIE: `/films/promo`,
 };
 
 
