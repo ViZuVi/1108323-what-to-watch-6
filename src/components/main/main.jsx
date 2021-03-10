@@ -6,6 +6,7 @@ import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import GenresList from '../genres-list/genres-list';
 import ShowMore from '../show-more/show-more';
+import {getFilteredMovies, getIsVisibleShowMore, getPromoMovie} from '../../store/data/selectors';
 
 const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
 
@@ -83,10 +84,9 @@ const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
 };
 
 const mapStateToProps = (state) => ({
-  filteredMovies: state.filteredMovies,
-  shownMovies: state.shownMovies,
-  isVisibleShowMore: state.isVisibleShowMore,
-  promoMovie: state.promoMovie,
+  filteredMovies: getFilteredMovies(state),
+  isVisibleShowMore: getIsVisibleShowMore(state),
+  promoMovie: getPromoMovie(state),
 });
 
 Main.propTypes = {

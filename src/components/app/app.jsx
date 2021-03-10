@@ -13,9 +13,10 @@ import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import {getMovies, getIsDataLoaded} from '../../store/data/selectors';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const App = ({movies, authorizationStatus}) => {
-
   const findActiveMovie = (films, props) => {
     const activeMovie = films.find((el) => {
       return el.id === parseInt(props.match.params.id, 10);
@@ -50,9 +51,9 @@ const App = ({movies, authorizationStatus}) => {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
+  movies: getMovies(state),
+  isDataLoaded: getIsDataLoaded(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 App.propTypes = {

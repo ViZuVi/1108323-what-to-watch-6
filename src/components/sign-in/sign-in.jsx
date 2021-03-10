@@ -74,7 +74,6 @@ const SignIn = ({onSubmit}) => {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  // setUser: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

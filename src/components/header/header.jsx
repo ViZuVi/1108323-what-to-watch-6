@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {logout} from '../../store/api-actions';
+import {getAuthorizationStatus, getUserInfo} from '../../store/user/selectors';
 
 const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
   return (
@@ -19,17 +20,16 @@ const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
       <div className="user-block">
 
         {authorizationStatus === AuthorizationStatus.AUTH
-          ? <Link to={AppRoute.MY_LIST}>{userInfo.email}</Link>
+          ? <> <Link to={AppRoute.MY_LIST}>{userInfo.email}</Link> <a href="#" onClick={onLogoutClick}>  Log out</a> </>
           : <Link to={AppRoute.LOGIN}>Sign In</Link>}
       </div>
-      <a href="#" onClick={onLogoutClick}>LOGOUT</a>
     </header>
   );
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  userInfo: state.userInfo,
+  authorizationStatus: getAuthorizationStatus(state),
+  userInfo: getUserInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

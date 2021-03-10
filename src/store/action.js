@@ -9,36 +9,41 @@ export const ActionType = {
   LOAD_PROMO_MOVIE: `/loadPromoMovie`,
 };
 
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: genre,
-  }),
-  getFilteredMovies: (genre) => ({
-    type: ActionType.GET_FILTERED_MOVIES,
-    payload: genre,
-  }),
-  getShownMovies: () => ({
-    type: ActionType.GET_SHOWN_MOVIES,
-  }),
-  loadMovies: (movies) => ({
-    type: ActionType.LOAD_MOVIES,
-    payload: movies,
-  }),
-  requiredAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  getUserInfo: (userInfo) => ({
-    type: ActionType.GET_USER_INFO,
-    payload: userInfo,
-  }),
-  loadComments: (comments) => ({
-    type: ActionType.LOAD_COMMENTS,
-    payload: comments,
-  }),
-  loadPromoMovie: (movie) => ({
-    type: ActionType.LOAD_PROMO_MOVIE,
-    payload: movie,
-  })
-};
+export const changeGenre = (genre) => ({
+  type: ActionType.CHANGE_GENRE,
+  payload: genre,
+});
+
+export const getFilteredMovies = (genre) => ({
+  type: ActionType.GET_FILTERED_MOVIES,
+  payload: genre,
+});
+
+export const getShownMovies = () => ({
+  type: ActionType.GET_SHOWN_MOVIES,
+});
+
+export const loadMovies = (movies) => ({
+  type: ActionType.LOAD_MOVIES,
+  payload: movies,
+});
+
+export const requiredAuthorization = (status) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload: status,
+});
+
+export const getUserInfo = (userInfo) => ({
+  type: ActionType.GET_USER_INFO,
+  payload: userInfo,
+});
+
+export const loadComments = (comments) => ({
+  type: ActionType.LOAD_COMMENTS,
+  payload: comments,
+});
+
+export const loadPromoMovie = (movie) => ({
+  type: ActionType.LOAD_PROMO_MOVIE,
+  payload: movie,
+});
