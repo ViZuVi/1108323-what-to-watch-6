@@ -5,7 +5,8 @@ import MovieDetails from '../movie-details/movie.details';
 import MovieOverview from '../movie-overview/movie-overview';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
-import {loadComments} from '../../store/api-actions';
+import {fetchComments} from '../../store/api-actions';
+import {getComments} from '../../store/data/selectors';
 
 const tabTitles = [`Overview`, `Details`, `Reviews`];
 
@@ -56,12 +57,12 @@ Tabs.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  comments: state.comments,
+  comments: getComments(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onReviewsTabClick(id) {
-    dispatch(loadComments(id));
+    dispatch(fetchComments(id));
   }
 });
 

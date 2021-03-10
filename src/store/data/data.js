@@ -1,7 +1,6 @@
-import {ActionType} from './action';
-import {AuthorizationStatus} from '../const';
-import {adaptMovies} from '../adapters/films';
-import {adaptPromo} from '../adapters/promo';
+import {ActionType} from '../action';
+import {adaptMovies} from '../../adapters/films';
+import {adaptPromo} from '../../adapters/promo';
 
 const SHOWN_MOVIES_ON_START = 8;
 const SHOWN_MOVIES_ON_BTN_CLICK = 8;
@@ -19,14 +18,12 @@ const initialState = {
   genres: [],
   shownMoviesCount: SHOWN_MOVIES_ON_START,
   isVisibleShowMore: false,
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
   isDataLoaded: false,
-  userInfo: null,
   comments: [],
   promoMovie: {},
 };
 
-const reducer = (state = initialState, action) => {
+const data = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_PROMO_MOVIE:
       const adaptedPromo = adaptPromo(action.payload);
@@ -39,11 +36,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         comments: action.payload,
       };
-    case ActionType.GET_USER_INFO:
-      return {
-        ...state,
-        userInfo: action.payload,
-      };
     case ActionType.LOAD_MOVIES:
       const adaptedMovies = adaptMovies(action.payload);
       return {
@@ -54,11 +46,6 @@ const reducer = (state = initialState, action) => {
         genres: getGenresSet(adaptedMovies),
         isVisibleShowMore: adaptedMovies.length > SHOWN_MOVIES_ON_START && true,
         isDataLoaded: true,
-      };
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
       };
     case ActionType.CHANGE_GENRE:
       return {
@@ -92,4 +79,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer};
+export {data};

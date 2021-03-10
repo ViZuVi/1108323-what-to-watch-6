@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import MovieCard from '../movie-card/movie-card';
 import {moviePropTypes} from '../../props-validation';
+import {getMovies} from '../../store/data/selectors';
 
 const MyList = ({movies}) => {
   return (
@@ -52,7 +53,7 @@ const MyList = ({movies}) => {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
+  movies: getMovies(state),
 });
 
 MyList.propTypes = {
