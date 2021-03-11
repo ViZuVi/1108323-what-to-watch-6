@@ -7,7 +7,13 @@ export const ActionType = {
   GET_USER_INFO: `/getUserInfo`,
   LOAD_COMMENTS: `/loadComments`,
   LOAD_PROMO_MOVIE: `/loadPromoMovie`,
+  LOAD_FAVORITE_FILMS: `/loadFavoriteFilms`
 };
+
+export const loadFavoriteFilms = (films) => ({
+  type: ActionType.LOAD_FAVORITE_FILMS,
+  payload: films,
+});
 
 export const changeGenre = (genre) => ({
   type: ActionType.CHANGE_GENRE,

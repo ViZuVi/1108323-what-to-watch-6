@@ -1,4 +1,4 @@
-import {loadMovies, loadPromoMovie, getUserInfo, requiredAuthorization, loadComments} from './action';
+import {loadMovies, loadPromoMovie, getUserInfo, requiredAuthorization, loadComments, loadFavoriteFilms} from './action';
 import {AuthorizationStatus, AppRoute} from '../const';
 
 export const fetchMovies = () => (dispatch, _getState, api) => (
@@ -22,6 +22,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(AppRoute.LOGIN, {email, password})
     .then(({data}) => dispatch(getUserInfo(data)))
     .then(() => dispatch(requiredAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(fetchFavoriteMovies()))
 );
 
 export const postComment = ({movieId, rating, comment}) => (_dispatch, _getState, api) => (
@@ -37,5 +38,15 @@ export const logout = () => (dispatch, _getState, api) => (
   api.get(AppRoute.LOGOUT)
     .then(() => dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH)))
     .then(() => dispatch(getUserInfo({})))
+);
+
+export const addToFavorite = (movieId, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${movieId}/${status}`, {movieId, status})
+  .then(() => dispatch(fetchFavoriteMovies()))
+);
+
+export const fetchFavoriteMovies = () => (dispatch, _getState, api) => (
+  api.get(AppRoute.FAVORITE)
+    .then(({data}) => dispatch(loadFavoriteFilms(data)))
 );
 

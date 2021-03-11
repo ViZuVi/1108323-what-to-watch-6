@@ -10,7 +10,7 @@ import rootReducer from './store/root-reducer';
 import {createAPI} from './services/api';
 import {requiredAuthorization} from './store/action';
 import {AuthorizationStatus} from './const';
-import {checkAuth, fetchMovies, fetchPromoMovie} from './store/api-actions';
+import {checkAuth, fetchFavoriteMovies, fetchMovies, fetchPromoMovie} from './store/api-actions';
 
 const api = createAPI(
     () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH))
@@ -21,6 +21,10 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk
 store.dispatch(checkAuth());
 store.dispatch(fetchMovies());
 store.dispatch(fetchPromoMovie());
+
+if (AuthorizationStatus.AUTH) {
+  store.dispatch(fetchFavoriteMovies());
+}
 
 ReactDOM.render(
     <Provider store={store} >

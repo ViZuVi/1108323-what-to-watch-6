@@ -21,10 +21,16 @@ const initialState = {
   isDataLoaded: false,
   comments: [],
   promoMovie: {},
+  favoriteFilms: [],
 };
 
 const data = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return {
+        ...state,
+        favoriteFilms: adaptMovies(action.payload),
+      };
     case ActionType.LOAD_PROMO_MOVIE:
       const adaptedPromo = adaptPromo(action.payload);
       return {

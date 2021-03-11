@@ -13,10 +13,10 @@ import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
-import {getMovies, getIsDataLoaded} from '../../store/data/selectors';
+import {getMovies, getIsDataLoaded, getFavoriteFilms} from '../../store/data/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 
-const App = ({movies, authorizationStatus}) => {
+const App = ({movies, authorizationStatus, favoriteFilms}) => {
   const findActiveMovie = (films, props) => {
     const activeMovie = films.find((el) => {
       return el.id === parseInt(props.match.params.id, 10);
@@ -29,7 +29,7 @@ const App = ({movies, authorizationStatus}) => {
       <Switch>
         <Route exact path={AppRoute.ROOT}><Main /></Route>
         <Route exact path={AppRoute.LOGIN}><SignIn /></Route>
-        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList />)} />
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList movies={favoriteFilms} />)} />
         <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={(props) => (<AddReview movie={findActiveMovie(movies, props)} />)} />
         <Route exact path={AppRoute.MOVIE_PAGE} render={(props) => {
           const activeMovie = findActiveMovie(movies, props);
@@ -53,10 +53,14 @@ const mapStateToProps = (state) => ({
   movies: getMovies(state),
   isDataLoaded: getIsDataLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
+  favoriteFilms: getFavoriteFilms(state),
 });
 
 App.propTypes = {
   movies: PropTypes.arrayOf(
+      PropTypes.shape(moviePropTypes).isRequired,
+  ).isRequired,
+  favoriteFilms: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired,
   match: PropTypes.shape({
