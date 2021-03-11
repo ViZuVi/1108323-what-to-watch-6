@@ -1,8 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-import {moviePropTypes} from '../../props-validation';
 
-const Videoplayer = ({isPlaying, movie}) => {
+const Videoplayer = ({isPlaying, src, poster}) => {
   const videoRef = useRef();
 
   useEffect(() => {
@@ -25,19 +24,22 @@ const Videoplayer = ({isPlaying, movie}) => {
 
   return (
     <video
+      className="player__video"
       ref={videoRef}
-      src={movie.previewVideo}
-      poster={movie.previewImg}
+      src={src}
+      poster={poster}
       muted
       loop
       autoPlay
+      controls
     />
   );
 };
 
 Videoplayer.propTypes = {
-  movie: PropTypes.shape(moviePropTypes).isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
+  isPlaying: PropTypes.bool,
 };
 
 export default Videoplayer;

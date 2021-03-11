@@ -7,7 +7,7 @@ import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
 import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
-// import Player from '../player/player';
+import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {AppRoute} from '../../const';
@@ -42,8 +42,7 @@ const App = ({movies, authorizationStatus}) => {
             />
           );
         }} />
-        {/* <Route exact path="/films/1/review"><AddReview movie={films[0]} /></Route>
-        <Route exact path="/player/1"><Player movie={films[0]} /></Route> */}
+        <Route exact path={AppRoute.VIDEO_PLAYER} render={(props) => (<Player movie={findActiveMovie(movies, props)} />)} />
         <Route path="/"><NotFound /></Route>
       </Switch>
     </BrowserRouter>
