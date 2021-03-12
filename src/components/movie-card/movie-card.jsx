@@ -37,7 +37,7 @@ const MovieCard = ({movie}) => {
     >
       <Link to={`/films/${movie.id}`}>
         <div className="small-movie-card__image">
-          {isPlaying ? <Videoplayer movie={movie} isPlaying={isPlaying} /> : <img src={movie.previewImg} alt="Shutter Island" width="280" height="175" />}
+          {isPlaying ? <Videoplayer src={movie.previewVideo} poster={movie.previewImg} isPlaying={isPlaying} /> : <img src={movie.previewImg} alt="Shutter Island" width="280" height="175" />}
         </div>
       </Link>
       <h3 className="small-movie-card__title">

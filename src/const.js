@@ -12,6 +12,8 @@ export const AppRoute = {
   LOGOUT: `/logout`,
   ADD_REVIEW: `/films/:id/review`,
   PROMO_MOVIE: `/films/promo`,
+  VIDEO_PLAYER: `/player/:id`,
+  FAVORITE: `/favorite`,
 };
 
 

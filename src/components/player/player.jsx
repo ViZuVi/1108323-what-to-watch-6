@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {moviePropTypes} from '../../props-validation';
+import Videoplayer from '../videoplayer/videoplayer';
+import {useHistory} from 'react-router-dom';
 
 const Player = ({movie}) => {
+  const history = useHistory();
   return (
     <div className="player">
-      <video src={movie.videoLink} className="player__video" poster="img/player-poster.jpg" controls></video>
+      <Videoplayer src={movie.videoLink} poster={movie.posterImg} ></Videoplayer>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={() => history.goBack()} >Exit</button>
 
     </div>
   );

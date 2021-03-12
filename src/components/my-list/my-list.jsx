@@ -1,10 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import MovieCard from '../movie-card/movie-card';
 import {moviePropTypes} from '../../props-validation';
-import {getMovies} from '../../store/data/selectors';
+import MoviesList from '../movies-list/movies-list';
 
 const MyList = ({movies}) => {
   return (
@@ -30,9 +28,8 @@ const MyList = ({movies}) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <div className="catalog__movies-list">
-          {movies.filter((film) => (film.isFavorite)).map((film) => (<MovieCard movie={film} key={film.id} />))}
-        </div>
+        <MoviesList movies={movies}/>
+
       </section>
 
       <footer className="page-footer">
@@ -52,15 +49,10 @@ const MyList = ({movies}) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  movies: getMovies(state),
-});
-
 MyList.propTypes = {
   movies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired
 };
 
-export {MyList};
-export default connect(mapStateToProps, null)(MyList);
+export default MyList;

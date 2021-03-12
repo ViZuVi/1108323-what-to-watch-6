@@ -5,8 +5,11 @@ import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import Header from '../header/header';
 // import MoviesList from '../movies-list/movies-list';
 import Tabs from '../tabs/tabs';
+import {addToFavorite} from '../../store/api-actions';
+import {connect} from 'react-redux';
 
-const MoviePage = ({movie, authorizationStatus}) => {
+const MoviePage = ({movie, authorizationStatus, onAddToFavoriteBtnClick}) => {
+
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -28,13 +31,15 @@ const MoviePage = ({movie, authorizationStatus}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <Link className="btn btn--play movie-card__button" to={`/player/${movie.id}`}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                </Link>
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                  onAddToFavoriteBtnClick(movie.id, Number(!movie.isFavorite));
+                }}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -93,6 +98,14 @@ MoviePage.propTypes = {
       PropTypes.shape(reviewPropTypes).isRequired,
   ),
   authorizationStatus: PropTypes.string.isRequired,
+  onAddToFavoriteBtnClick: PropTypes.func.isRequired,
 };
 
-export default MoviePage;
+const mapDispatchToProps = (dispatch) => ({
+  onAddToFavoriteBtnClick(id, status) {
+    dispatch(addToFavorite(id, status));
+  }
+});
+
+export {MoviePage};
+export default connect(null, mapDispatchToProps)(MoviePage);
