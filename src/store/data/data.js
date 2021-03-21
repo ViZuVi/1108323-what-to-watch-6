@@ -85,4 +85,4 @@ const data = (state = initialState, action) => {
   return state;
 };
 
-export {data};
+export {data, getGenresSet};
