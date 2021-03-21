@@ -57,7 +57,7 @@ describe(`Async operation work correctly`, () => {
 
     apiMock
       .onPost(AppRoute.LOGIN)
-      .reply(200, [{fake: true}]);
+      .reply(200, fakeUser);
 
     return loginLoader(dispatch, () => {}, api)
       .then(() => {
@@ -72,13 +72,6 @@ describe(`Async operation work correctly`, () => {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.AUTH,
         });
-
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: ActionType.LOAD_FAVORITE_FILMS,
-          payload: [],
-        });
-
-
       });
   });
 
@@ -88,7 +81,7 @@ describe(`Async operation work correctly`, () => {
     const logoutLoader = logout();
 
     apiMock
-      .onPost(AppRoute.LOGOUT)
+      .onGet(AppRoute.LOGOUT)
       .reply(200, [{fake: true}]);
 
     return logoutLoader(dispatch, () => {}, api)
@@ -98,7 +91,7 @@ describe(`Async operation work correctly`, () => {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.NO_AUTH,
         });
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.GET_USER_INFO,
           payload: {},
         });

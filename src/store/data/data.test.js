@@ -473,7 +473,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to /comments/:film_id`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const commentsLoader = fetchComments();
+    const commentsLoader = fetchComments(1);
 
     apiMock
       .onGet(`/comments/1`)
@@ -493,6 +493,7 @@ describe(`Async operation work correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const fakeComment = {
+      "movieId": 1,
       "rating": 8,
       "comment": `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`
     };
@@ -504,15 +505,14 @@ describe(`Async operation work correctly`, () => {
 
     return commentsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(0);
       });
   });
 
   it(`Should make a correct API call to /favorite/:film_id/:status`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const fakeStatus = Number(true);
-    const favoritesLoader = addToFavorite(fakeStatus);
+    const favoritesLoader = addToFavorite(1, 1);
 
     apiMock
       .onPost(`/favorite/1/1`)
@@ -521,10 +521,6 @@ describe(`Async operation work correctly`, () => {
     return favoritesLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_FAVORITE_FILMS,
-          payload: [{fake: true}],
-        });
       });
   });
 
