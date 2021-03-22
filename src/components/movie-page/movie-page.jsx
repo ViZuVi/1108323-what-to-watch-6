@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import Header from '../header/header';
-// import MoviesList from '../movies-list/movies-list';
+import MoviesList from '../movies-list/movies-list';
 import Tabs from '../tabs/tabs';
 import {addToFavorite} from '../../store/api-actions';
 import {connect} from 'react-redux';
 
-const MoviePage = ({movie, authorizationStatus, onAddToFavoriteBtnClick}) => {
-
+const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick}) => {
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -67,7 +66,7 @@ const MoviePage = ({movie, authorizationStatus, onAddToFavoriteBtnClick}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          {/* <MoviesList films={films.filter((film) => (film.genre === movie.genre && film.id !== movie.id)).slice(0, 4)} /> */}
+          <MoviesList movies={movies.filter((film) => (film.genre === movie.genre && film.id !== movie.id)).slice(0, 4)} />
 
         </section>
 
@@ -90,9 +89,9 @@ const MoviePage = ({movie, authorizationStatus, onAddToFavoriteBtnClick}) => {
 };
 
 MoviePage.propTypes = {
-  // films: PropTypes.arrayOf(
-  //     PropTypes.shape(moviePropTypes).isRequired,
-  // ).isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape(moviePropTypes).isRequired,
+  ).isRequired,
   movie: PropTypes.shape(moviePropTypes).isRequired,
   reviews: PropTypes.arrayOf(
       PropTypes.shape(reviewPropTypes).isRequired,

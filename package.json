@@ -13,7 +13,10 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/src/style-mock.js"
-    }
+    },
+    "setupFilesAfterEnv": [
+      "./setup-tests.js"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

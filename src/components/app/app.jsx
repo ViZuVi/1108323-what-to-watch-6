@@ -36,7 +36,7 @@ const App = ({movies, authorizationStatus, favoriteFilms}) => {
           return (
             <MoviePage
               {...props}
-              // films={films}
+              movies={movies}
               movie={activeMovie}
               authorizationStatus={authorizationStatus}
             />
