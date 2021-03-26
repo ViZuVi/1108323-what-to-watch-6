@@ -22,7 +22,7 @@ const Header = ({authorizationStatus, userInfo, onLogoutClick}) => {
         {authorizationStatus === AuthorizationStatus.AUTH
           ? <> <Link to={AppRoute.MY_LIST}>
             <div className="user-block__avatar">
-              <img src={userInfo.avatar_url} alt="User avatar" width="63" height="63" />
+              <img src={userInfo.avatar} alt="User avatar" width="63" height="63" />
             </div>
           </Link>
           <a href="#" onClick={onLogoutClick}>
@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch) => ({
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   userInfo: PropTypes.shape({
-    avatar_url: PropTypes.string,
+    avatar: PropTypes.string,
   }),
   onLogoutClick: PropTypes.func.isRequired,
 };

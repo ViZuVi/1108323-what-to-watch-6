@@ -1,6 +1,5 @@
 import {ActionType} from '../action';
-import {adaptMovies} from '../../adapters/films';
-import {adaptPromo} from '../../adapters/promo';
+import {adaptMovies, adaptMovie} from '../../adapters/films';
 
 const SHOWN_MOVIES_ON_START = 8;
 const SHOWN_MOVIES_ON_BTN_CLICK = 8;
@@ -19,7 +18,6 @@ const initialState = {
   shownMoviesCount: SHOWN_MOVIES_ON_START,
   isVisibleShowMore: false,
   isDataLoaded: false,
-  comments: [],
   promoMovie: {},
   favoriteFilms: [],
 };
@@ -32,15 +30,10 @@ const data = (state = initialState, action) => {
         favoriteFilms: adaptMovies(action.payload),
       };
     case ActionType.LOAD_PROMO_MOVIE:
-      const adaptedPromo = adaptPromo(action.payload);
+      const adaptedPromo = adaptMovie(action.payload);
       return {
         ...state,
         promoMovie: adaptedPromo,
-      };
-    case ActionType.LOAD_COMMENTS:
-      return {
-        ...state,
-        comments: action.payload,
       };
     case ActionType.LOAD_MOVIES:
       const adaptedMovies = adaptMovies(action.payload);

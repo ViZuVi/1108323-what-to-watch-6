@@ -5,8 +5,7 @@ import {fetchMovies, fetchPromoMovie, fetchComments, postComment, addToFavorite,
 import {AppRoute} from '../../const';
 import {ActionType} from '../action';
 import MockAdapter from 'axios-mock-adapter';
-import {adaptMovies} from '../../adapters/films';
-import {adaptPromo} from '../../adapters/promo';
+import {adaptMovies, adaptMovie} from '../../adapters/films';
 
 const api = createAPI(() => {});
 
@@ -412,7 +411,7 @@ describe(`Reducer for async actions works correctly`, () => {
     };
     expect(data(state, loadPromoMovieAction))
       .toEqual({
-        promoMovie: adaptPromo(mockPromoMovie),
+        promoMovie: adaptMovie(mockPromoMovie),
       });
   });
 

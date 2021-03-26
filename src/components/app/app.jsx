@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
@@ -12,40 +12,30 @@ import NotFound from '../not-found/not-found';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from '../../browser-history';
-import {getMovies, getIsDataLoaded, getFavoriteFilms} from '../../store/data/selectors';
+import {getMovies, getIsDataLoaded} from '../../store/data/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
+import {AuthorizationStatus} from '../../const';
 
-const App = ({movies, authorizationStatus, favoriteFilms}) => {
-  const findActiveMovie = (films, props) => {
-    const activeMovie = films.find((el) => {
-      return el.id === parseInt(props.match.params.id, 10);
-    });
-    return activeMovie;
-  };
+const App = ({authorizationStatus}) => {
+
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoute.ROOT}><Main /></Route>
-        <Route exact path={AppRoute.LOGIN}><SignIn /></Route>
-        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => (<MyList movies={favoriteFilms} />)} />
-        <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={(props) => (<AddReview movie={findActiveMovie(movies, props)} />)} />
-        <Route exact path={AppRoute.MOVIE_PAGE} render={(props) => {
-          const activeMovie = findActiveMovie(movies, props);
-          return (
-            <MoviePage
-              {...props}
-              movies={movies}
-              movie={activeMovie}
-              authorizationStatus={authorizationStatus}
-            />
-          );
-        }} />
-        <Route exact path={AppRoute.VIDEO_PLAYER} render={(props) => (<Player movie={findActiveMovie(movies, props)} />)} />
-        <Route path="/"><NotFound /></Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.ROOT}><Main /></Route>
+      <Route exact path={AppRoute.LOGIN} render={() => {
+        return (
+          authorizationStatus === AuthorizationStatus.AUTH
+            ? <Redirect to={AppRoute.ROOT} />
+            : <SignIn />
+        );
+      }}
+      />
+      <Route exact path={AppRoute.MY_LIST}><MyList /></Route>
+      <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={() => <AddReview /> } />
+      <Route exact path={AppRoute.MOVIE_PAGE}><MoviePage /></Route>
+      <Route exact path={AppRoute.VIDEO_PLAYER} ><Player /></Route>
+      <Route path="/"><NotFound /></Route>
+    </Switch>
   );
 };
 
@@ -53,24 +43,9 @@ const mapStateToProps = (state) => ({
   movies: getMovies(state),
   isDataLoaded: getIsDataLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
-  favoriteFilms: getFavoriteFilms(state),
 });
 
 App.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape(moviePropTypes).isRequired,
-  ).isRequired,
-  favoriteFilms: PropTypes.arrayOf(
-      PropTypes.shape(moviePropTypes).isRequired,
-  ).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }),
-  }),
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape(reviewPropTypes).isRequired,
-  ),
   authorizationStatus: PropTypes.string.isRequired,
 };
 

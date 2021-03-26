@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {moviePropTypes} from '../../props-validation';
 import MoviesList from '../movies-list/movies-list';
@@ -8,8 +8,12 @@ import Header from '../header/header';
 import GenresList from '../genres-list/genres-list';
 import ShowMore from '../show-more/show-more';
 import {getFilteredMovies, getIsVisibleShowMore, getPromoMovie} from '../../store/data/selectors';
+import {addToFavorite} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {AuthorizationStatus, AppRoute} from '../../const';
 
-const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
+const Main = ({promoMovie, filteredMovies, isVisibleShowMore, onAddToFavoriteBtnClick, authorizationStatus}) => {
+  const history = useHistory();
 
   return (
     <>
@@ -42,7 +46,13 @@ const Main = ({promoMovie, filteredMovies, isVisibleShowMore}) => {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                  return (
+                    authorizationStatus === AuthorizationStatus.AUTH
+                      ? onAddToFavoriteBtnClick(promoMovie.id, Number(!promoMovie.isFavorite))
+                      : history.push(AppRoute.LOGIN)
+                  );
+                }}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -88,21 +98,32 @@ const mapStateToProps = (state) => ({
   filteredMovies: getFilteredMovies(state),
   isVisibleShowMore: getIsVisibleShowMore(state),
   promoMovie: getPromoMovie(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onAddToFavoriteBtnClick(id, status) {
+    dispatch(addToFavorite(id, status));
+  }
 });
 
 Main.propTypes = {
   promoMovie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
     backgroundImg: PropTypes.string.isRequired,
     posterImg: PropTypes.string.isRequired,
-  }).isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+  }),
   filteredMovies: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ),
   isVisibleShowMore: PropTypes.bool.isRequired,
+  onAddToFavoriteBtnClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export {Main};
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

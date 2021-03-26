@@ -7,12 +7,30 @@ export const ActionType = {
   GET_USER_INFO: `/getUserInfo`,
   LOAD_COMMENTS: `/loadComments`,
   LOAD_PROMO_MOVIE: `/loadPromoMovie`,
-  LOAD_FAVORITE_FILMS: `/loadFavoriteFilms`
+  LOAD_FAVORITE_FILMS: `/loadFavoriteFilms`,
+  LOAD_MOVIE: `/loadMovie`,
+  SET_LOADING_STATUS: `/setLoadingStatus`,
+  SET_COMMENT_STATUS: `/setCommentStatus`,
 };
+
+export const setCommentStatus = (status) => ({
+  type: ActionType.SET_COMMENT_STATUS,
+  payload: status,
+});
+
+export const setLoadingStatus = (status) => ({
+  type: ActionType.SET_LOADING_STATUS,
+  payload: status,
+});
 
 export const loadFavoriteFilms = (films) => ({
   type: ActionType.LOAD_FAVORITE_FILMS,
   payload: films,
+});
+
+export const loadMovie = (movie) => ({
+  type: ActionType.LOAD_MOVIE,
+  payload: movie,
 });
 
 export const changeGenre = (genre) => ({

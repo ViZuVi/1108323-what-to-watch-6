@@ -1,10 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {moviePropTypes} from '../../props-validation';
 import MoviesList from '../movies-list/movies-list';
+import {getFavoriteFilms} from '../../store/data/selectors';
 
-const MyList = ({movies}) => {
+const MyList = ({favoriteFilms}) => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -23,7 +25,7 @@ const MyList = ({movies}) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <MoviesList movies={movies}/>
+        <MoviesList movies={favoriteFilms}/>
 
       </section>
 
@@ -45,9 +47,13 @@ const MyList = ({movies}) => {
 };
 
 MyList.propTypes = {
-  movies: PropTypes.arrayOf(
+  favoriteFilms: PropTypes.arrayOf(
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired
 };
 
-export default MyList;
+const mapStateToProps = (state) => ({
+  favoriteFilms: getFavoriteFilms(state),
+});
+
+export default connect(mapStateToProps, null)(MyList);

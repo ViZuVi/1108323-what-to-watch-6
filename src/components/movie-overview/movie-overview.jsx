@@ -17,7 +17,7 @@ const MovieOverview = ({movie}) => {
       <div className="movie-card__text">
         <p>{movie.description}</p>
         <p className="movie-card__director"><strong>{movie.director}</strong></p>
-        <p className="movie-card__starring"><strong>{movie.starring.join(`, `)}</strong></p>
+        <p className="movie-card__starring"><strong>{movie.starring && movie.starring.join(`, `)}</strong></p>
       </div>
     </>
   );
