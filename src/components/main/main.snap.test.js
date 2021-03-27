@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import Main from './main';
-import {movies, genres} from '../../test-mocks';
+import {movies, genres, movie} from '../../test-mocks';
 import {AuthorizationStatus} from '../../const';
 
 const mockStore = configureStore({});
@@ -13,7 +13,7 @@ const mockStore = configureStore({});
 it(`Main should render correctly`, () => {
   const history = createMemoryHistory();
   const store = mockStore({
-    DATA: {filteredMovies: movies, promoMovie: {}, isVisibleShowMore: true, genres},
+    DATA: {filteredMovies: movies, promoMovie: movie, isVisibleShowMore: true, genres},
     USER: {authorizationStatus: AuthorizationStatus.AUTH, userInfo: {}}
   });
   const {container} = render(

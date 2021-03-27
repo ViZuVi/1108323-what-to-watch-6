@@ -5,17 +5,20 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import AddReview from './add-review';
+import {movie} from '../../test-mocks';
 
 const mockStore = configureStore({});
 
 it(`Render 'AddReview' when user navigate to '/films/:id/review' url`, () => {
   const history = createMemoryHistory();
   history.push(`/films/2/review`);
-
+  const store = mockStore({
+    ACTIVE_MOVIE: {movie, commentStatus: `PENDING`}
+  });
   render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
-          <AddReview movie={{}} />
+          <AddReview />
         </Router>
       </Provider>
   );

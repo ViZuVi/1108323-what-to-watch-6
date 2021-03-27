@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import {SignIn} from './sign-in';
+import SignIn from './sign-in';
 
 const mockStore = configureStore({});
 

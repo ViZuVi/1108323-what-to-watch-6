@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import {data, getGenresSet} from './data';
 import {createAPI} from '../../services/api';
-import {fetchMovies, fetchPromoMovie, fetchComments, postComment, addToFavorite, fetchFavoriteMovies} from '../api-actions';
+import {fetchMovies, fetchPromoMovie, addToFavorite, fetchFavoriteMovies} from '../api-actions';
 import {AppRoute} from '../../const';
 import {ActionType} from '../action';
 import MockAdapter from 'axios-mock-adapter';
@@ -243,29 +243,6 @@ const mockPromoMovie = {
   video_link: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
 };
 
-const mockComments = [
-  {
-    id: 1,
-    user: {
-      id: 4,
-      name: `Kate Muir`
-    },
-    rating: 8.9,
-    comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-    date: `2019-05-08T14:13:56.569Z`
-  },
-  {
-    id: 2,
-    user: {
-      id: 4,
-      name: `Kate Muir`
-    },
-    rating: 8.9,
-    comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-    date: `2019-05-08T14:13:56.569Z`
-  }
-];
-
 const filteredFilms = [
   {
     name: `Macbeth`,
@@ -300,8 +277,7 @@ describe(`Reducer for sync actions works correctly`, () => {
         shownMoviesCount: 8,
         isVisibleShowMore: false,
         isDataLoaded: false,
-        comments: [],
-        promoMovie: {},
+        promoMovie: null,
         favoriteFilms: [],
       });
   });
@@ -414,20 +390,6 @@ describe(`Reducer for async actions works correctly`, () => {
         promoMovie: adaptMovie(mockPromoMovie),
       });
   });
-
-  it(`Reducer should update comments by load comments`, () => {
-    const state = {
-      comments: [],
-    };
-    const loadCommentsAction = {
-      type: ActionType.LOAD_COMMENTS,
-      payload: mockComments
-    };
-    expect(data(state, loadCommentsAction))
-      .toEqual({
-        comments: mockComments,
-      });
-  });
 });
 
 describe(`Async operation work correctly`, () => {
@@ -466,45 +428,6 @@ describe(`Async operation work correctly`, () => {
           type: ActionType.LOAD_PROMO_MOVIE,
           payload: [{fake: true}],
         });
-      });
-  });
-
-  it(`Should make a correct API call to /comments/:film_id`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const commentsLoader = fetchComments(1);
-
-    apiMock
-      .onGet(`/comments/1`)
-      .reply(200, [{fake: true}]);
-
-    return commentsLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_COMMENTS,
-          payload: [{fake: true}],
-        });
-      });
-  });
-
-  it(`Should make a correct API call to /comments/:film_id`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const fakeComment = {
-      "movieId": 1,
-      "rating": 8,
-      "comment": `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`
-    };
-    const commentsLoader = postComment(fakeComment);
-
-    apiMock
-      .onPost(`/comments/1`)
-      .reply(200, [{fake: true}]);
-
-    return commentsLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(0);
       });
   });
 

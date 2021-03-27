@@ -6,6 +6,7 @@ import * as redux from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {AuthorizationStatus} from '../../const';
 import App from './app';
+import {movies, movie, genres} from '../../test-mocks';
 
 const mockStore = configureStore({});
 
@@ -16,7 +17,7 @@ describe(`Test routing`, () => {
   it(`Render 'Main' when user navigate to '/' url`, () => {
     const history = createMemoryHistory();
     const store = mockStore({
-      DATA: {movies: [], promoMovie: {}, filteredMovies: [], genres: []},
+      DATA: {movies: [], promoMovie: movie, filteredMovies: [], genres, isVisibleShowMore: true},
       USER: {authorizationStatus: AuthorizationStatus.AUTH, userInfo: {}},
     });
     render(
@@ -31,12 +32,12 @@ describe(`Test routing`, () => {
     expect(screen.getByText(/What to watch Ltd/i)).toBeInTheDocument();
   });
 
-  it(`Render 'AuthScreen' when user navigate to '/login' url`, () => {
+  it(`Render 'SignIn' when user navigate to '/login' url`, () => {
     const history = createMemoryHistory();
     history.push(`/login`);
     const store = mockStore({
       DATA: {movies: [], promoMovie: {}, filteredMovies: [], genres: []},
-      USER: {authorizationStatus: AuthorizationStatus.AUTH, userInfo: {}},
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH, userInfo: {}},
     });
     render(
         <redux.Provider store={store}>
@@ -49,96 +50,107 @@ describe(`Test routing`, () => {
     expect(screen.getByLabelText(`Password`)).toBeInTheDocument();
   });
 
-  // it(`Render 'MyList' when user navigate to '/mylist' url`, () => {
-  //   const store = {mockStore({})}
+  it(`Render 'MyList' when user navigate to '/mylist' url`, () => {
+    const store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
+      DATA: {favoriteFilms: movies},
+    });
 
-  //   const history = createMemoryHistory();
-  //   history.push(`/mylist`);
+    const history = createMemoryHistory();
+    history.push(`/mylist`);
 
-  //   render(
-  //       <redux.Provider store={store}>
-  //         <Router history={history}>
-  //           <App />
-  //         </Router>
-  //       </redux.Provider>
-  //   );
+    render(
+        <redux.Provider store={store}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
 
-  //   expect(screen.getByText(/My list/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
-  // });
+    expect(screen.getByText(/My list/i)).toBeInTheDocument();
+    expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
+  });
 
-  // it(`Render 'MyList' when user navigate to '/films/:id/review' url`, () => {
-  //   const store = mockStore({
-  //     DATA: {movies: []}
-  //   });
+  it(`Render 'AddReview' when user navigate to '/films/:id/review' url`, () => {
+    const store = mockStore({
+      ACTIVE_MOVIE: {movie},
+      USER: {userInfo: {}, authorizationStatus: AuthorizationStatus.AUTH}
+    });
 
-  //   const history = createMemoryHistory();
-  //   history.push(`/films/2/review`);
+    const history = createMemoryHistory();
+    history.push(`/films/2/review`);
 
-  //   render(
-  //       <redux.Provider store={store}>
-  //         <Router history={history}>
-  //           <App />
-  //         </Router>
-  //       </redux.Provider>
-  //   );
+    render(
+        <redux.Provider store={store}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
 
-  //   expect(screen.getByText(/My list/i)).toBeInTheDocument();
-  //   expect(screen.getByText(/Catalog/i)).toBeInTheDocument();
-  // });
+    expect(screen.getByDisplayValue(8)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Review text/i)).toBeInTheDocument();
+  });
 
-  // it(`Render 'MoviePage' when user navigate to '/films/:id' url`, () => {
-  //   const store = mockStore({
-  //     DATA: {movies: []}
-  //   });
+  it(`Render 'MoviePage' when user navigate to '/films/:id' url`, () => {
+    const store = mockStore({
+      ACTIVE_MOVIE: {movie},
+      USER: {authorizationStatus: AuthorizationStatus.AUTH, userInfo: {}},
+      DATA: {movies},
+    });
 
-  //   const history = createMemoryHistory();
-  //   history.push(`/films/2`);
+    const history = createMemoryHistory();
+    history.push(`/films/2`);
+    store.dispatch = () => {};
+    render(
+        <redux.Provider store={store}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
 
-  //   render(
-  //       <redux.Provider store={store}>
-  //         <Router history={history}>
-  //           <App />
-  //         </Router>
-  //       </redux.Provider>
-  //   );
+    expect(screen.getByText(/More like this/i)).toBeInTheDocument();
+  });
 
-  //   expect(screen.getByText(/More like this/i)).toBeInTheDocument();
-  // });
+  it(`Render 'Player' when user navigate to '/player/:id' url`, () => {
+    const store = mockStore({
+      ACTIVE_MOVIE: {movie},
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+    });
 
-  // it(`Render 'MoviePage' when user navigate to '/player/:id' url`, () => {
-  //   const store = mockStore({});
+    const history = createMemoryHistory();
+    history.push(`/player/2`);
 
-  //   const history = createMemoryHistory();
-  //   history.push(`/player/2`);
+    render(
+        <redux.Provider store={store}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
 
-  //   render(
-  //       <redux.Provider store={store}>
-  //         <Router history={history}>
-  //           <App />
-  //         </Router>
-  //       </redux.Provider>
-  //   );
+    expect(screen.getByText(/Exit/i)).toBeInTheDocument();
+  });
 
-  //   expect(screen.getByText(/Exit/i)).toBeInTheDocument();
-  // });
+  it(`Render 'NotFound' when user navigate to non-existent route`, () => {
+    const history = createMemoryHistory();
+    history.push(`/non-existent-route`);
+    const store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
+    });
 
-  // it(`Render 'NotFound' when user navigate to non-existent route`, () => {
-  //   const history = createMemoryHistory();
-  //   history.push(`/non-existent-route`);
+    render(
+        <redux.Provider store={store}>
+          <Router history={history}>
+            <App />
+          </Router>
+        </redux.Provider>
+    );
 
-  //   render(
-  //       <redux.Provider store={mockStore({})}>
-  //         <Router history={history}>
-  //           <App />
-  //         </Router>
-  //       </redux.Provider>
-  //   );
-
-  //   expect(screen.getByText(`404. Page not found`)).toBeInTheDocument();
-  //   expect(screen.getByText(`Return to the main page`)).toBeInTheDocument();
-  // });
-
+    expect(screen.getByText(`404. Page not found`)).toBeInTheDocument();
+    expect(screen.getByText(`Return to the main page`)).toBeInTheDocument();
+  });
 });
 
 

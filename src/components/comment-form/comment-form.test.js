@@ -5,16 +5,18 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import {CommentForm} from './comment-form';
+import CommentForm from './comment-form';
 
 const mockStore = configureStore({});
 
 it(`Render 'CommentForm' when user navigate to '/films/:id/review' url`, () => {
   const history = createMemoryHistory();
   history.push(`/films/2/review`);
-
+  const store = mockStore({
+    ACTIVE_MOVIE: {commentStatus: `PENDING`}
+  });
   render(
-      <Provider store={mockStore({})}>
+      <Provider store={store}>
         <Router history={history}>
           <CommentForm movie={{}} />
         </Router>

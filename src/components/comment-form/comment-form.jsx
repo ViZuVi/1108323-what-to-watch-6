@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {postComment} from '../../store/api-actions';
 import {moviePropTypes} from '../../props-validation';
-import {getCommentStatus} from '../../store/activeMovie/selectors';
+import {getCommentStatus} from '../../store/active-movie/selectors';
 import ErrorScreen from '../error-screen/error-screen';
 
 const CommentForm = ({onSubmit, movie, commentStatus}) => {

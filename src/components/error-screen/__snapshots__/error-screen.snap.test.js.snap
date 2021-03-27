@@ -4,9 +4,14 @@ exports[`ErrorScreen should render correctly 1`] = `
 <div>
   <div>
     <p
-      class="page-title user-page__title"
+      style="text-transform: uppercase; font-size: 32px; text-align: center; color: black;"
     >
-      Error. 
+      Error
+    </p>
+    <p
+      style="font-size: 24px; text-align: center; color: black;"
+    >
+      Try again later
     </p>
   </div>
 </div>

@@ -6,13 +6,14 @@ export const fetchMovies = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(loadMovies(data)))
 );
 
-export const fetchMovie = (id) => (dispatch, _getState, api) => (
+export const fetchMovie = (id) => (dispatch, _getState, api) => {
+  dispatch(setLoadingStatus(`LOADING`));
   api.get(`/films/${id}`)
   .then(({data}) => dispatch(loadMovie(data)))
   .then(() => dispatch(setLoadingStatus(`LOADED`)))
   .then(() => dispatch(setCommentStatus(`PENDING`)))
-  .catch(() => dispatch(setLoadingStatus(`ERROR`)))
-);
+  .catch(() => dispatch(setLoadingStatus(`ERROR`)));
+};
 
 export const fetchPromoMovie = () => (dispatch, _getState, api) => (
   api.get(AppRoute.PROMO_MOVIE)

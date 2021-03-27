@@ -6,7 +6,7 @@ import MovieOverview from '../movie-overview/movie-overview';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {fetchComments} from '../../store/api-actions';
-import {getComments} from '../../store/activeMovie/selectors';
+import {getComments} from '../../store/active-movie/selectors';
 
 const tabTitles = [`Overview`, `Details`, `Reviews`];
 

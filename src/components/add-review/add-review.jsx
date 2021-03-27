@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {moviePropTypes} from '../../props-validation';
 import CommentForm from '../comment-form/comment-form';
-import {getMovie} from '../../store/activeMovie/selectors';
+import {getMovie} from '../../store/active-movie/selectors';
 
 const AddReview = ({movie}) => {
   return (

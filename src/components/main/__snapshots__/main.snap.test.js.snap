@@ -8,7 +8,10 @@ exports[`Main should render correctly 1`] = `
     <div
       class="movie-card__bg"
     >
-      <img />
+      <img
+        alt="Macbeth"
+        src="https://assets.htmlacademy.ru/intensives/javascript-3/film/background/Macbeth.jpg"
+      />
     </div>
     <h1
       class="visually-hidden"
@@ -76,7 +79,9 @@ exports[`Main should render correctly 1`] = `
           class="movie-card__poster"
         >
           <img
+            alt="Macbeth"
             height="327"
+            src="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Macbeth.jpg"
             width="218"
           />
         </div>
@@ -85,16 +90,22 @@ exports[`Main should render correctly 1`] = `
         >
           <h2
             class="movie-card__title"
-          />
+          >
+            Macbeth
+          </h2>
           <p
             class="movie-card__meta"
           >
             <span
               class="movie-card__genre"
-            />
+            >
+              Drama
+            </span>
             <span
               class="movie-card__year"
-            />
+            >
+              2015
+            </span>
           </p>
           <div
             class="movie-card__buttons"

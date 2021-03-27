@@ -9,7 +9,7 @@ import {addToFavorite} from '../../store/api-actions';
 import {connect} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {getMovies} from '../../store/data/selectors';
-import {getMovie, getMovieStatus} from '../../store/activeMovie/selectors';
+import {getMovie, getMovieStatus} from '../../store/active-movie/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {fetchMovie} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';

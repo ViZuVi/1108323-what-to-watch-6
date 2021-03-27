@@ -17,6 +17,7 @@ it(`MoviePage should render correctly`, () => {
     DATA: {movies},
     USER: {authorizationStatus: AuthorizationStatus.AUTH, userInfo: {}}
   });
+  store.dispatch = () => {};
   const {container} = render(
       <Provider store={store}>
         <Router history={history}>

@@ -4,11 +4,11 @@ import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import {ShowMore} from './show-more';
+import ShowMore from './show-more';
 
 const mockStore = configureStore({});
 
-it(`Tabs should render correctly`, () => {
+it(`ShowMore should render correctly`, () => {
   const history = createMemoryHistory();
   const {getByText} = render(
       <Provider store={mockStore({})}>

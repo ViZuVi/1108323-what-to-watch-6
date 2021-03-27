@@ -14,6 +14,7 @@ describe(`Test Videoplayer`, () => {
         <Videoplayer
           isPlaying={true}
           src={mockPath}
+          poster="posterImg"
         />
     );
 

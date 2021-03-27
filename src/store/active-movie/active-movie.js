@@ -3,7 +3,7 @@ import {adaptMovie} from '../../adapters/films';
 
 const initialState = {
   movie: {},
-  movieStatus: `LOADING`,
+  movieStatus: `PENDING`,
   comments: [],
   commentStatus: `PENDING`,
 };
