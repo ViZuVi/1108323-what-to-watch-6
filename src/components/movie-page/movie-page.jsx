@@ -48,7 +48,7 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
                 </p>
 
                 <div className="movie-card__buttons">
-                  <Link className="btn btn--play movie-card__button" to={`/player/${movie.id}`}>
+                  <Link className="btn btn--play movie-card__button" to={`/player/${id}`}>
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
                     </svg>
@@ -57,7 +57,7 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
                   <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                     return (
                       authorizationStatus === AuthorizationStatus.AUTH
-                        ? onAddToFavoriteBtnClick(movie.id, Number(!movie.isFavorite))
+                        ? onAddToFavoriteBtnClick(id, Number(!movie.isFavorite))
                         : history.push(AppRoute.LOGIN)
                     );
                   }}>
@@ -68,7 +68,7 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
                   </button>
 
                   {authorizationStatus === AuthorizationStatus.AUTH &&
-                    <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">
+                    <Link to={`/films/${id}/review`} className="btn movie-card__button">
                       Add review
                     </Link>}
 
@@ -91,7 +91,7 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
-            <MoviesList movies={movies.filter((film) => (film.genre === movie.genre && film.id !== movie.id)).slice(0, 4)} />
+            <MoviesList movies={movies.filter((film) => (film.genre === movie.genre && film.id !== id)).slice(0, 4)} />
 
           </section>
 
@@ -125,7 +125,7 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  status: getMovieStatus(state),
+  movieStatus: getMovieStatus(state),
   movie: getMovie(state),
   movies: getMovies(state),
   authorizationStatus: getAuthorizationStatus(state),

@@ -5,6 +5,7 @@ import {useHistory} from 'react-router-dom';
 import {postComment} from '../../store/api-actions';
 import {moviePropTypes} from '../../props-validation';
 import {getCommentStatus} from '../../store/activeMovie/selectors';
+import ErrorScreen from '../error-screen/error-screen';
 
 const CommentForm = ({onSubmit, movie, commentStatus}) => {
   const history = useHistory();
@@ -52,60 +53,61 @@ const CommentForm = ({onSubmit, movie, commentStatus}) => {
   };
 
   return (
-    <form action="#" className="add-review__form"
-      onSubmit={handleSubmit}>
-      <div className="rating">
-        <div className="rating__stars">
-          {STARS.map((star, id) => {
-            return (
-              <React.Fragment key={`${id}-star${star}`}>
-                <input
-                  disabled={commentStatus === `SENDING`}
-                  ref={radioRef}
-                  className="rating__input"
-                  id={`star-${id}`}
-                  type="radio"
-                  name="rating"
-                  value={id + 1}
-                  data-testid="stars"
-                  onChange={({target}) => {
-                    return (
-                      setUserStar(+target.value)
-                    );
-                  }}
-                />
-                <label className="rating__label" htmlFor={`star-${id}`}>Rating {id}</label>
-              </React.Fragment>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="add-review__text">
-        <textarea
-          disabled={commentStatus === `SENDING`}
-          ref={textAreaRef}
-          className="add-review__textarea"
-          name="review-text"
-          id="review-text"
-          placeholder="Review text"
-          value={commentText}
-          minLength={MIN_LENGTH}
-          maxLength={MAX_LENGTH}
-          data-testid="comment"
-          onChange={({target}) => {
-            const value = target.value;
-            return (
-              setCommentText(value)
-            );
-          }}
-        ></textarea>
-        <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" disabled={commentStatus === `SENDING` ? true : disabledButton}>Post</button>
+    commentStatus === `ERROR` ? <ErrorScreen /> :
+      <form action="#" className="add-review__form"
+        onSubmit={handleSubmit}>
+        <div className="rating">
+          <div className="rating__stars">
+            {STARS.map((star, id) => {
+              return (
+                <React.Fragment key={`${id}-star${star}`}>
+                  <input
+                    disabled={commentStatus === `SENDING`}
+                    ref={radioRef}
+                    className="rating__input"
+                    id={`star-${id}`}
+                    type="radio"
+                    name="rating"
+                    value={id + 1}
+                    data-testid="stars"
+                    onChange={({target}) => {
+                      return (
+                        setUserStar(+target.value)
+                      );
+                    }}
+                  />
+                  <label className="rating__label" htmlFor={`star-${id}`}>Rating {id}</label>
+                </React.Fragment>
+              );
+            })}
+          </div>
         </div>
 
-      </div>
-    </form>
+        <div className="add-review__text">
+          <textarea
+            disabled={commentStatus === `SENDING`}
+            ref={textAreaRef}
+            className="add-review__textarea"
+            name="review-text"
+            id="review-text"
+            placeholder="Review text"
+            value={commentText}
+            minLength={MIN_LENGTH}
+            maxLength={MAX_LENGTH}
+            data-testid="comment"
+            onChange={({target}) => {
+              const value = target.value;
+              return (
+                setCommentText(value)
+              );
+            }}
+          ></textarea>
+          <div className="add-review__submit">
+            <button className="add-review__btn" type="submit" disabled={commentStatus === `SENDING` ? true : disabledButton}>Post</button>
+          </div>
+
+        </div>
+      </form>
   );
 };
 
@@ -125,5 +127,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {CommentForm};
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

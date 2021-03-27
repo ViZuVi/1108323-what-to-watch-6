@@ -126,5 +126,4 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

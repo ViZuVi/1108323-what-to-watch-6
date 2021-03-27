@@ -54,5 +54,4 @@ Header.propTypes = {
   onLogoutClick: PropTypes.func.isRequired,
 };
 
-export {Header};
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

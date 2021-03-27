@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 export const moviePropTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  previewImg: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  title: PropTypes.string,
+  previewImg: PropTypes.string,
 };
 
 export const reviewPropTypes = {

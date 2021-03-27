@@ -11,7 +11,6 @@ import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {getMovies, getIsDataLoaded} from '../../store/data/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {AuthorizationStatus} from '../../const';
 
@@ -39,8 +38,6 @@ const App = ({authorizationStatus}) => {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
-  isDataLoaded: getIsDataLoaded(state),
   authorizationStatus: getAuthorizationStatus(state),
 });
 
@@ -48,5 +45,4 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-export {App};
 export default connect(mapStateToProps, null)(App);
