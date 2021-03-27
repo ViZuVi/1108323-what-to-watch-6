@@ -18,7 +18,7 @@ const initialState = {
   shownMoviesCount: SHOWN_MOVIES_ON_START,
   isVisibleShowMore: false,
   isDataLoaded: false,
-  promoMovie: {},
+  promoMovie: null,
   favoriteFilms: [],
 };
 

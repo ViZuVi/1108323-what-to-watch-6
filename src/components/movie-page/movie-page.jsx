@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link, useHistory, useParams} from 'react-router-dom';
-import {moviePropTypes, reviewPropTypes} from '../../props-validation';
+import {moviePropTypes} from '../../props-validation';
 import Header from '../header/header';
 import MoviesList from '../movies-list/movies-list';
 import Tabs from '../tabs/tabs';
@@ -32,7 +32,7 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
         <section className="movie-card movie-card--full">
           <div className="movie-card__hero">
             <div className="movie-card__bg">
-              <img src={movie.backgroundImg} alt="The Grand Budapest Hotel" />
+              <img src={movie.backgroundImg} alt={movie.title} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -118,11 +118,10 @@ MoviePage.propTypes = {
       PropTypes.shape(moviePropTypes).isRequired,
   ).isRequired,
   movie: PropTypes.shape(moviePropTypes),
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape(reviewPropTypes).isRequired,
-  ),
   authorizationStatus: PropTypes.string.isRequired,
   onAddToFavoriteBtnClick: PropTypes.func.isRequired,
+  onComponentMount: PropTypes.func.isRequired,
+  movieStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

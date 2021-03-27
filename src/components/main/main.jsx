@@ -16,6 +16,7 @@ const Main = ({promoMovie, filteredMovies, isVisibleShowMore, onAddToFavoriteBtn
   const history = useHistory();
 
   return (
+    promoMovie &&
     <>
       <section className="movie-card">
         <div className="movie-card__bg">

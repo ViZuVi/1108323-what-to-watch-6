@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ErrorScreen = ({error}) => {
   return (
@@ -7,5 +8,10 @@ const ErrorScreen = ({error}) => {
     </div>
   );
 };
+
+ErrorScreen.propTypes = {
+  error: PropTypes.string.isRequired,
+};
+
 
 export default ErrorScreen;

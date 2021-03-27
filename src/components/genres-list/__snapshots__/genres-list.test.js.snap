@@ -35,16 +35,6 @@ exports[`GenresList should render correctly 1`] = `
         Comedy
       </a>
     </li>
-    <li
-      class="catalog__genres-item"
-    >
-      <a
-        class="catalog__genres-link"
-        href="#"
-      >
-        Thriller
-      </a>
-    </li>
   </ul>
 </div>
 `;

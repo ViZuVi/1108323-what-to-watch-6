@@ -4,28 +4,24 @@ import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import Tabs from './tabs';
-import {movie, comments} from '../../test-mocks';
+import Player from './player';
+import {movie} from '../../test-mocks';
 
 const mockStore = configureStore({});
 
-it(`Tabs should render correctly`, () => {
+it(`Player should render correctly`, () => {
   const history = createMemoryHistory();
   const store = mockStore({
-    ACTIVE_MOVIE: {comments, movie}
+    ACTIVE_MOVIE: {movie}
   });
   const {getByText} = render(
       <Provider store={store}>
         <Router history={history}>
-          <Tabs movie={movie} comments={comments} />
+          <Player src={movie.videoLink} poster={movie.posterImg}/>
         </Router>
       </Provider>
   );
-  const overviewTab = getByText(`Overview`);
-  const detailsTab = getByText(`Details`);
-  const reviewsTab = getByText(`Reviews`);
+  const buttonElement = getByText(`Exit`);
 
-  expect(overviewTab).toBeInTheDocument();
-  expect(detailsTab).toBeInTheDocument();
-  expect(reviewsTab).toBeInTheDocument();
+  expect(buttonElement).toBeInTheDocument();
 });

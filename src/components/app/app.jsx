@@ -9,7 +9,6 @@ import MoviePage from '../movie-page/movie-page';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
-import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {getMovies, getIsDataLoaded} from '../../store/data/selectors';

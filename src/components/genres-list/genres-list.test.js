@@ -3,12 +3,13 @@ import {render} from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import GenresList from './genres-list';
+import {genres} from '../../test-mocks';
 
 const onGenreClick = jest.fn();
 const mockStore = configureStore({});
 const store = mockStore({
   DATA: {
-    genres: [`All genres`, `Drama`, `Comedy`, `Thriller`],
+    genres,
     activeGenre: `Drama`,
   },
 });

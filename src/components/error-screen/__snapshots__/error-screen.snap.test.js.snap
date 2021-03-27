@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorScreen should render correctly 1`] = `
+<div>
+  <div>
+    <p
+      class="page-title user-page__title"
+    >
+      Error. 
+    </p>
+  </div>
+</div>
+`;
