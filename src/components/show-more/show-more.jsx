@@ -21,5 +21,4 @@ ShowMore.propTypes = {
   onShowMoreClick: PropTypes.func.isRequired,
 };
 
-export {ShowMore};
 export default connect(null, mapDispatchToProps)(ShowMore);

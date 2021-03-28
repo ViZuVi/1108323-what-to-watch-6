@@ -1,5 +1,6 @@
 import {ActionType} from '../action';
 import {AuthorizationStatus} from '../../const';
+import {adaptAuthInfo} from '../../adapters/authInfo';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -11,7 +12,7 @@ const user = (state = initialState, action) => {
     case ActionType.GET_USER_INFO:
       return {
         ...state,
-        userInfo: action.payload,
+        userInfo: adaptAuthInfo(action.payload),
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

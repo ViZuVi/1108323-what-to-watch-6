@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {moviePropTypes} from '../../props-validation';
 import CommentForm from '../comment-form/comment-form';
+import {getMovie} from '../../store/active-movie/selectors';
 
 const AddReview = ({movie}) => {
   return (
@@ -36,7 +38,7 @@ const AddReview = ({movie}) => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+
             </div>
           </div>
         </header>
@@ -59,4 +61,8 @@ AddReview.propTypes = {
   movie: PropTypes.shape(moviePropTypes).isRequired,
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  movie: getMovie(state),
+});
+
+export default connect(mapStateToProps, null)(AddReview);

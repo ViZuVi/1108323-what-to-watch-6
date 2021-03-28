@@ -8,6 +8,5 @@ export const getGenres = (state) => state[NameSpace.DATA].genres;
 export const getShownMoviesCount = (state) => state[NameSpace.DATA].shownMoviesCount;
 export const getIsVisibleShowMore = (state) => state[NameSpace.DATA].isVisibleShowMore;
 export const getIsDataLoaded = (state) => state[NameSpace.DATA].isDataLoaded;
-export const getComments = (state) => state[NameSpace.DATA].comments;
 export const getPromoMovie = (state) => state[NameSpace.DATA].promoMovie;
 export const getFavoriteFilms = (state) => state[NameSpace.DATA].favoriteFilms;

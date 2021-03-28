@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {moviePropTypes} from '../../props-validation';
 import Videoplayer from '../videoplayer/videoplayer';
 import {useHistory} from 'react-router-dom';
+import {getMovie} from '../../store/active-movie/selectors';
 
 const Player = ({movie}) => {
   const history = useHistory();
@@ -20,4 +22,8 @@ Player.propTypes = {
   movie: PropTypes.shape(moviePropTypes).isRequired,
 };
 
-export default Player;
+const mapStateToProps = (state) => ({
+  movie: getMovie(state),
+});
+
+export default connect(mapStateToProps, null)(Player);

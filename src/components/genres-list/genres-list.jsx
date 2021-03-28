@@ -38,5 +38,4 @@ GenresList.propTypes = {
   onGenreClick: PropTypes.func.isRequired,
 };
 
-export {GenresList};
 export default connect(mapStateToProps, mapDispatchToProps)(GenresList);

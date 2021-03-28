@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router as BrowserRouter} from 'react-router-dom';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -11,6 +12,7 @@ import {createAPI} from './services/api';
 import {requiredAuthorization} from './store/action';
 import {AuthorizationStatus} from './const';
 import {checkAuth, fetchFavoriteMovies, fetchMovies, fetchPromoMovie} from './store/api-actions';
+import browserHistory from './browser-history';
 
 const api = createAPI(
     () => store.dispatch(requiredAuthorization(AuthorizationStatus.NO_AUTH))
@@ -28,7 +30,9 @@ if (AuthorizationStatus.AUTH) {
 
 ReactDOM.render(
     <Provider store={store} >
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );

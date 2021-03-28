@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import MovieDetails from '../movie-details/movie.details';
+import MovieDetails from '../movie-details/movie-details';
 import MovieOverview from '../movie-overview/movie-overview';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {fetchComments} from '../../store/api-actions';
-import {getComments} from '../../store/data/selectors';
+import {getComments} from '../../store/active-movie/selectors';
 
 const tabTitles = [`Overview`, `Details`, `Reviews`];
 
@@ -66,5 +66,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {Tabs};
 export default connect(mapStateToProps, mapDispatchToProps)(Tabs);

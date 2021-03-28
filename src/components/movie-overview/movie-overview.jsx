@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {getRating} from '../../common';
-import {moviePropTypes} from '../../props-validation';
 
 const MovieOverview = ({movie}) => {
   return (
@@ -17,14 +16,19 @@ const MovieOverview = ({movie}) => {
       <div className="movie-card__text">
         <p>{movie.description}</p>
         <p className="movie-card__director"><strong>{movie.director}</strong></p>
-        <p className="movie-card__starring"><strong>{movie.starring.join(`, `)}</strong></p>
+        <p className="movie-card__starring"><strong>{movie.starring && movie.starring.join(`, `)}</strong></p>
       </div>
     </>
   );
 };
 
 MovieOverview.propTypes = {
-  movie: PropTypes.shape(moviePropTypes).isRequired,
+  movie: PropTypes.shape({
+    rating: PropTypes.number.isRequired,
+    director: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  }).isRequired,
 };
 
 export default MovieOverview;
