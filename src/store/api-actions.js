@@ -55,6 +55,8 @@ export const logout = () => (dispatch, _getState, api) => (
 export const addToFavorite = (movieId, status) => (dispatch, _getState, api) => (
   api.post(`/favorite/${movieId}/${status}`, {movieId, status})
   .then(() => dispatch(fetchFavoriteMovies()))
+  .then(() => dispatch(fetchMovie(movieId)))
+  .then(() => dispatch(fetchPromoMovie()))
 );
 
 export const fetchFavoriteMovies = () => (dispatch, _getState, api) => (

@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyList should render correctly 1`] = `
+<div>
+  <div
+    class="user-page"
+  >
+    <header
+      class="page-header user-page__head"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link"
+          href="/"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <h1
+        class="page-title user-page__title"
+      >
+        My list
+      </h1>
+    </header>
+    <section
+      class="catalog"
+    >
+      <h2
+        class="catalog__title visually-hidden"
+      >
+        Catalog
+      </h2>
+      <div
+        class="catalog__movies-list"
+      >
+        <article
+          class="small-movie-card catalog__movies-card"
+        >
+          <a
+            href="/films/1"
+          >
+            <div
+              class="small-movie-card__image"
+            >
+              <img
+                alt="Shutter Island"
+                height="175"
+                src="https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg"
+                width="280"
+              />
+            </div>
+          </a>
+          <h3
+            class="small-movie-card__title"
+          >
+            <a
+              class="small-movie-card__link"
+              href="/films/1"
+            >
+              Macbeth
+            </a>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+        >
+          <a
+            href="/films/2"
+          >
+            <div
+              class="small-movie-card__image"
+            >
+              <img
+                alt="Shutter Island"
+                height="175"
+                src="https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/macbeth.jpg"
+                width="280"
+              />
+            </div>
+          </a>
+          <h3
+            class="small-movie-card__title"
+          >
+            <a
+              class="small-movie-card__link"
+              href="/films/2"
+            >
+              Macbeth
+            </a>
+          </h3>
+        </article>
+      </div>
+    </section>
+    <footer
+      class="page-footer"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link logo__link--light"
+          href="main.html"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        class="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+`;

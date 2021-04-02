@@ -1,16 +1,16 @@
 import React from 'react';
-import {render} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import MovieCard from './movie-card';
-import {movie} from '../../test-mocks';
+import {render} from '@testing-library/react';
+import NotFound from './not-found';
 
-it(`MovieCard should render correctly`, () => {
+it(`NotFound should render correctly`, () => {
   const history = createMemoryHistory();
   const {container} = render(
       <Router history={history}>
-        <MovieCard movie={movie} />
-      </Router>);
+        <NotFound />
+      </Router>
+  );
   expect(container).toMatchSnapshot();
 });
 

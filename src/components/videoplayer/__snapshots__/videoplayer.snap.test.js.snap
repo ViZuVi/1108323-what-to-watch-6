@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Videoplayer should render correctly 1`] = `
+<div>
+  <video
+    autoplay=""
+    class="player__video"
+    controls=""
+    loop=""
+    poster="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Macbeth.jpg"
+  />
+</div>
+`;

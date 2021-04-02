@@ -12,7 +12,7 @@ const mockStore = configureStore({});
 it(`Tabs should render correctly`, () => {
   const history = createMemoryHistory();
   const store = mockStore({
-    ACTIVE_MOVIE: {comments, movie}
+    ACTIVE_MOVIE: {comments, movie, movieStatus: `LOADED`}
   });
   const {getByText} = render(
       <Provider store={store}>

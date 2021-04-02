@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import MovieOverview from './movie-overview';
 import {movie} from '../../test-mocks';
 
-test(`MovieOverview should render correctly`, () => {
+it(`MovieOverview should render correctly`, () => {
   const history = createMemoryHistory();
   const {container} = render(
       <Router history={history}>

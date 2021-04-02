@@ -52,7 +52,7 @@ describe(`Test routing`, () => {
 
   it(`Render 'MyList' when user navigate to '/mylist' url`, () => {
     const store = mockStore({
-      USER: {authorizationStatus: AuthorizationStatus.NO_AUTH},
+      USER: {authorizationStatus: AuthorizationStatus.AUTH},
       DATA: {favoriteFilms: movies},
     });
 

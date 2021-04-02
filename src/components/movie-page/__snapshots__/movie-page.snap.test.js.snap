@@ -218,7 +218,8 @@ exports[`MoviePage should render correctly 1`] = `
               <span
                 class="movie-rating__count"
               >
-                240 ratings
+                48798
+                 ratings
               </span>
             </p>
           </div>

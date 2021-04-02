@@ -6,17 +6,17 @@ import MovieOverview from '../movie-overview/movie-overview';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {moviePropTypes, reviewPropTypes} from '../../props-validation';
 import {fetchComments} from '../../store/api-actions';
-import {getComments} from '../../store/active-movie/selectors';
+import {getComments, getMovieStatus} from '../../store/active-movie/selectors';
 
 const tabTitles = [`Overview`, `Details`, `Reviews`];
 
 
-const Tabs = ({movie, comments, onReviewsTabClick}) => {
+const Tabs = ({movie, comments, onReviewsTabClick, movieStatus}) => {
   const [activeTab, setActiveTab] = useState(`Overview`);
 
   const getActiveTab = (tab) => {
     switch (tab) {
-      case `Overview`: return <MovieOverview movie={movie} />;
+      case `Overview`: return <MovieOverview movie={movie} movieStatus={movieStatus} />;
       case `Details`: return <MovieDetails movie={movie} />;
       case `Reviews`: return <MovieReviews comments={comments} />;
       default: return <MovieOverview />;
@@ -24,6 +24,7 @@ const Tabs = ({movie, comments, onReviewsTabClick}) => {
   };
 
   return (
+    movieStatus === `LOADED` &&
     <div className="movie-card__desc">
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
@@ -54,10 +55,12 @@ Tabs.propTypes = {
       PropTypes.shape(reviewPropTypes).isRequired,
   ),
   onReviewsTabClick: PropTypes.func.isRequired,
+  movieStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   comments: getComments(state),
+  movieStatus: getMovieStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

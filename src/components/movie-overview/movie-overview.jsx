@@ -9,7 +9,7 @@ const MovieOverview = ({movie}) => {
         <div className="movie-rating__score">{movie.rating}</div>
         <p className="movie-rating__meta">
           <span className="movie-rating__level">{getRating(movie.rating)}</span>
-          <span className="movie-rating__count">240 ratings</span>
+          <span className="movie-rating__count">{movie.scores} ratings</span>
         </p>
       </div>
 
@@ -28,6 +28,7 @@ MovieOverview.propTypes = {
     director: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    scores: PropTypes.number.isRequired,
   }).isRequired,
 };
 

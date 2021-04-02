@@ -442,7 +442,7 @@ describe(`Async operation work correctly`, () => {
 
     return favoritesLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
       });
   });
 

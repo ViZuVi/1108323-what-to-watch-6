@@ -28,7 +28,7 @@ const App = ({authorizationStatus}) => {
         );
       }}
       />
-      <Route exact path={AppRoute.MY_LIST}><MyList /></Route>
+      <PrivateRoute exact path={AppRoute.MY_LIST} render={() => <MyList /> } />
       <PrivateRoute exact path={AppRoute.ADD_REVIEW} render={() => <AddReview /> } />
       <Route exact path={AppRoute.MOVIE_PAGE}><MoviePage /></Route>
       <Route exact path={AppRoute.VIDEO_PLAYER} ><Player /></Route>

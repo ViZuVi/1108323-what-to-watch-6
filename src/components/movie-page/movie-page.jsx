@@ -21,6 +21,7 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
   if (movieStatus === `ERROR`) {
     return <NotFound />;
   }
+
   useEffect(() => {
     onComponentMount(id);
   }, [id]);
@@ -61,9 +62,10 @@ const MoviePage = ({movies, movie, authorizationStatus, onAddToFavoriteBtnClick,
                         : history.push(AppRoute.LOGIN)
                     );
                   }}>
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
+                    {movie.isFavorite
+                      ? <svg viewBox="0 0 18 14" width="18" height="14"><use xlinkHref="#in-list"></use></svg>
+                      : <svg viewBox="0 0 19 20" width="19" height="20"><use xlinkHref="#add"></use></svg>
+                    }
                     <span>My list</span>
                   </button>
 

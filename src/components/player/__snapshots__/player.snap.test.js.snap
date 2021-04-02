@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Player should render correctly 1`] = `
+<div>
+  <div
+    class="player"
+  >
+    <video
+      autoplay=""
+      class="player__video"
+      controls=""
+      loop=""
+      poster="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Macbeth.jpg"
+      src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4"
+    />
+    <button
+      class="player__exit"
+      type="button"
+    >
+      Exit
+    </button>
+  </div>
+</div>
+`;
